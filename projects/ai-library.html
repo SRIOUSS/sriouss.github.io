@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Library — 조창희 포트폴리오</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <header id="nav">
+    <div class="nav-inner">
+      <a href="../index.html#hero" class="nav-logo">조창희</a>
+      <nav>
+        <a href="../index.html#about">소개</a>
+        <a href="../index.html#projects">프로젝트</a>
+        <a href="../index.html#contact">연락처</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="detail-hero">
+    <div class="section-inner">
+      <a href="../index.html#projects" class="back-link">&larr; 프로젝트 목록</a>
+      <span class="detail-meta">TEAM PROJECT · 2026.06.17 – 2026.07.04 · 4인</span>
+      <h1>AI Library</h1>
+      <p class="lead">BGE-M3 임베딩 기반 하이브리드 검색 결과를 RRF로 재랭킹해 LLM에 전달하는 RAG 추천 파이프라인과, 국립중앙도서관 Open API를 MCP 프로토콜(SSE)로 감싸 AI가 실시간 도서관 정보를 도구처럼 호출할 수 있게 하는 MCP 서버를 설계·구현했습니다.</p>
+      <div class="project-stack">
+        <span>Spring AI</span>
+        <span>Java 21</span>
+        <span>Spring Boot</span>
+        <span>PostgreSQL / pgvector</span>
+        <span>Spring Data JPA</span>
+        <span>Spring Data Redis</span>
+        <span>MCP (SSE)</span>
+        <span>Ollama</span>
+        <span>BGE-M3</span>
+        <span>Caffeine</span>
+        <span>RabbitMQ</span>
+        <span>SonarQube</span>
+        <span>Testcontainers</span>
+      </div>
+      <p style="margin-top: 1.5rem;">
+        <a class="project-link" href="https://github.com/orgs/team1-ai-library" target="_blank" rel="noopener">GitHub 보기 &rarr;</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-inner">
+      <h2 class="section-heading reveal">내 역할</h2>
+      <div class="section-inner reveal" style="padding:0; text-align:left; max-width: 800px; margin: 0 0 3rem;">
+        <p class="lead" style="margin:0; text-align:left;">
+          RAG 파이프라인과 MCP 서버/클라이언트 설계·구현을 담당했습니다. 검색 담당 팀원과는 문서로 인터페이스만 정의하고 나중에 합치는 방식이 아니라,
+          실시간으로 함께 코드를 작성하며 검색 결과 스코어링 방식과 RAG로 넘길 데이터 형식을 계속 맞춰갔습니다.
+        </p>
+      </div>
+
+      <div class="feature-list reveal">
+        <div class="feature-item">
+          <span class="feature-num">01</span>
+          <div>
+            <h3>RAG 추천 파이프라인</h3>
+            <p>검색 담당 팀원과 페어로 하이브리드 검색(RRF)을 구현하고, 재랭킹부터 LLM 호출·추천 이유 생성까지 이어지는 RAG 파이프라인으로 완성했습니다.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <span class="feature-num">02</span>
+          <div>
+            <h3>시맨틱 캐시</h3>
+            <p>질문 임베딩 간 코사인 유사도가 0.98 이상이면 LLM 호출 없이 캐시된 결과를 즉시 반환해 불필요한 LLM 호출 비용과 지연을 절감했습니다.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <span class="feature-num">03</span>
+          <div>
+            <h3>MCP 서버 구축 (7개 도구)</h3>
+            <p>국립중앙도서관 Open API(정보나루)를 7개 MCP 도구로 감싸, LLM이 대화 중 실시간 도서관 정보가 필요하면 직접 호출하도록 구현했습니다.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <span class="feature-num">04</span>
+          <div>
+            <h3>MCP 클라이언트 통합</h3>
+            <p>ai-library-team1에 MCP Client(SSE)를 연결해, RAG 응답 생성 중 LLM이 필요 시 mcp-server의 도구를 호출하도록 통합했습니다.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <span class="feature-num">05</span>
+          <div>
+            <h3>챗봇 UI·스트리밍</h3>
+            <p>LLM 응답을 SSE로 실시간 스트리밍하는 챗봇 UI를 구현하고, 웹·텔레그램이 같은 대화 맥락(최대 10건)을 공유하도록 만들었습니다.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-dark">
+    <div class="section-inner">
+      <h2 class="section-heading reveal" style="color: var(--color-text-dark);">아키텍처</h2>
+      <p class="lead" style="text-align:left; margin: 0 0 2rem; max-width: 760px;">실제 서비스 아키텍처입니다. <strong style="color:#3aa0ff; text-shadow: 0 0 14px rgba(58,160,255,0.55);">파란색</strong>이 제가 설계·구축한 RAG/MCP 영역이고, <strong style="color:rgba(245,245,247,0.85);">회색</strong>은 팀원이 개발한 배치·검색 로직 및 외부 시스템입니다.</p>
+      <div class="diagram-wrap reveal">
+        <svg class="diagram" viewBox="0 0 1000 560" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="arrow-ai" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="#6e6e73" />
+            </marker>
+          </defs>
+
+          <!-- Client -->
+          <rect x="380" y="20" width="200" height="46" rx="10" fill="#1c1c1e" stroke="#3a3a3c" stroke-width="1.5" />
+          <text x="480" y="48" text-anchor="middle" fill="#f5f5f7" font-size="13.5">Client (Web · Telegram)</text>
+          <line x1="480" y1="66" x2="480" y2="96" stroke="#6e6e73" stroke-width="1.4" marker-end="url(#arrow-ai)" />
+
+          <!-- ai-library-team1 container (mine: RAG orchestration) -->
+          <rect x="250" y="100" width="280" height="165" rx="16" fill="rgba(0,113,227,0.08)" stroke="#0071e3" stroke-width="2" stroke-dasharray="6 5" />
+          <text x="266" y="122" fill="#4da3ff" font-size="12.5" font-weight="600">ai-library-team1 (담당)</text>
+
+          <rect x="270" y="132" width="240" height="55" rx="10" fill="rgba(0,113,227,0.18)" stroke="#0071e3" stroke-width="1.5" />
+          <text x="390" y="164" text-anchor="middle" fill="#f5f5f7" font-size="14" font-weight="600">Ollama</text>
+
+          <rect x="270" y="198" width="240" height="55" rx="10" fill="rgba(0,113,227,0.18)" stroke="#0071e3" stroke-width="1.5" />
+          <text x="390" y="230" text-anchor="middle" fill="#f5f5f7" font-size="14" font-weight="600">Gemini</text>
+
+          <!-- MCP server -->
+          <line x1="530" y1="182" x2="608" y2="182" stroke="#6e6e73" stroke-width="1.4" marker-end="url(#arrow-ai)" />
+          <text x="569" y="174" text-anchor="middle" fill="#4da3ff" font-size="9.5">MCP Client</text>
+          <rect x="610" y="152" width="180" height="60" rx="12" fill="rgba(0,113,227,0.18)" stroke="#0071e3" stroke-width="1.5" />
+          <text x="700" y="177" text-anchor="middle" fill="#f5f5f7" font-size="13.5" font-weight="600">data4library</text>
+          <text x="700" y="196" text-anchor="middle" fill="rgba(245,245,247,0.7)" font-size="10.5">MCP 서버 (담당)</text>
+
+          <!-- External API -->
+          <line x1="790" y1="182" x2="828" y2="182" stroke="#6e6e73" stroke-width="1.4" marker-end="url(#arrow-ai)" />
+          <rect x="830" y="152" width="150" height="60" rx="12" fill="#1c1c1e" stroke="#3a3a3c" stroke-width="1.5" />
+          <text x="905" y="177" text-anchor="middle" fill="#f5f5f7" font-size="12">도서관 정보나루</text>
+          <text x="905" y="195" text-anchor="middle" fill="rgba(245,245,247,0.55)" font-size="9.5">Open API</text>
+
+          <!-- Branch down to batch/search subsystem (teammate) -->
+          <path d="M330,265 L330,300 L160,300 L160,330" stroke="#6e6e73" stroke-width="1.4" fill="none" marker-end="url(#arrow-ai)" />
+          <path d="M450,265 L450,300 L470,300 L470,330" stroke="#6e6e73" stroke-width="1.4" fill="none" marker-end="url(#arrow-ai)" />
+
+          <rect x="60" y="330" width="200" height="60" rx="12" fill="#1c1c1e" stroke="#3a3a3c" stroke-width="1.5" />
+          <text x="160" y="356" text-anchor="middle" fill="#f5f5f7" font-size="13" font-weight="600">RabbitMQ</text>
+          <text x="160" y="374" text-anchor="middle" fill="rgba(245,245,247,0.6)" font-size="10">리뷰 이벤트 (팀원 담당)</text>
+
+          <rect x="370" y="330" width="220" height="66" rx="12" fill="#1c1c1e" stroke="#3a3a3c" stroke-width="1.5" />
+          <text x="480" y="368" text-anchor="middle" fill="#f5f5f7" font-size="13">PostgreSQL / pgvector</text>
+
+          <line x1="260" y1="360" x2="370" y2="360" stroke="#6e6e73" stroke-width="1.2" stroke-dasharray="3 3" />
+
+          <path d="M160,390 L160,420 L280,420 L280,438" stroke="#6e6e73" stroke-width="1.4" fill="none" marker-end="url(#arrow-ai)" />
+          <path d="M470,396 L470,420 L400,420 L400,438" stroke="#6e6e73" stroke-width="1.4" fill="none" marker-end="url(#arrow-ai)" />
+
+          <rect x="180" y="440" width="260" height="60" rx="12" fill="#1c1c1e" stroke="#3a3a3c" stroke-width="1.5" />
+          <text x="310" y="466" text-anchor="middle" fill="#f5f5f7" font-size="13" font-weight="600">Embedding Batch</text>
+          <text x="310" y="484" text-anchor="middle" fill="rgba(245,245,247,0.6)" font-size="10">RabbitMQ 소비 (팀원 담당)</text>
+
+          <!-- Legend -->
+          <rect x="60" y="524" width="16" height="16" rx="3" fill="rgba(0,113,227,0.4)" stroke="#0071e3" />
+          <text x="84" y="537" font-size="12.5" fill="rgba(245,245,247,0.85)">담당 영역 — RAG 오케스트레이션(Ollama·Gemini) · MCP 서버 · MCP 클라이언트</text>
+          <rect x="630" y="524" width="16" height="16" rx="3" fill="#1c1c1e" stroke="#3a3a3c" />
+          <text x="654" y="537" font-size="12.5" fill="rgba(245,245,247,0.85)">팀원 담당 · 외부 시스템</text>
+        </svg>
+      </div>
+
+      <h3 class="reveal" style="text-align:left; font-size:1.8rem; font-weight:700; margin: 3rem 0 1.5rem; color: var(--color-text-dark);">동작 방식</h3>
+      <p class="reveal" style="text-align:left; margin: 0 0 2rem; color: rgba(245,245,247,0.7); font-size: 0.95rem;">챗봇 질문은 실제로 서로 다른 두 경로로 처리됩니다. 일반 대화는 LLM이 MCP 도구를 직접 호출하는 <strong style="color:rgba(245,245,247,0.9);">챗봇 대화 흐름</strong>으로, 도서 추천 질문은 하이브리드 검색과 RRF로 후보를 추려 LLM에 전달하는 <strong style="color:rgba(245,245,247,0.9);">RAG 추천 파이프라인</strong>으로 각각 처리됩니다. 스크롤하면 지금 읽는 항목이 다이어그램에 표시됩니다.</p>
+
+      <div class="flow-card reveal">
+      <h4 style="text-align:left; font-size:1.35rem; font-weight:700; margin: 0 0 1.5rem; color: #ff9f0a;">챗봇 대화 흐름</h4>
+      <div class="flow-sticky-wrap">
+        <div class="flow-diagram-col">
+          <div class="mini-flow mini-flow-vertical" data-flow-diagram>
+            <svg viewBox="0 0 600 380" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <marker id="arrow-chat" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+                  <path d="M0,0 L10,5 L0,10 z" fill="#6e6e73" />
+                </marker>
+              </defs>
+
+              <g class="step-node" data-stage="1">
+                <rect x="20" y="20" width="280" height="80" rx="10" fill="rgba(0,113,227,0.15)" stroke="#0071e3" stroke-width="1.5" />
+                <text x="160" y="56" text-anchor="middle" fill="#f5f5f7" font-size="18" font-weight="600">챗봇 입력</text>
+                <text x="160" y="80" text-anchor="middle" fill="rgba(245,245,247,0.6)" font-size="14">Web · Telegram</text>
+              </g>
+              <line class="step-arrow" x1="160" y1="100" x2="160" y2="140" stroke="#6e6e73" stroke-width="1.4" marker-end="url(#arrow-chat)" />
+
+              <g class="step-node" data-stage="1 3">
+                <rect x="20" y="140" width="280" height="80" rx="10" fill="rgba(0,113,227,0.15)" stroke="#0071e3" stroke-width="1.5" />
+                <text x="160" y="176" text-anchor="middle" fill="#f5f5f7" font-size="18" font-weight="600">LLM 호출</text>
+                <text x="160" y="200" text-anchor="middle" fill="rgba(245,245,247,0.6)" font-size="14">Gemini·Ollama·Local + MCP 도구 바인딩</text>
+              </g>
+              <line class="step-arrow" x1="160" y1="220" x2="160" y2="260" stroke="#6e6e73" stroke-width="1.4" marker-end="url(#arrow-chat)" />
+              <line class="step-arrow" data-stage="3" x1="300" y1="180" x2="340" y2="180" stroke="#6e6e73" stroke-width="1.4" marker-end="url(#arrow-chat)" />
+              <text class="step-arrow" data-stage="3" x="320" y="170" text-anchor="middle" fill="rgba(245,245,247,0.6)" font-size="13">도구 필요시</text>
+
+              <g class="step-node" data-stage="1">
+                <rect x="20" y="260" width="280" height="80" rx="10" fill="rgba(0,113,227,0.15)" stroke="#0071e3" stroke-width="1.5" />
+                <text x="160" y="296" text-anchor="middle" fill="#f5f5f7" font-size="18" font-weight="600">SSE 스트리밍 응답</text>
+                <text x="160" y="320" text-anchor="middle" fill="rgba(245,245,247,0.6)" font-size="14">ChatMemory 저장(최대 10건)</text>
+              </g>
+
+              <g class="step-node" data-stage="2 3">
+                <rect x="340" y="140" width="240" height="80" rx="10" fill="rgba(0,113,227,0.15)" stroke="#0071e3" stroke-width="1.5" />
+                <text x="460" y="176" text-anchor="middle" fill="#f5f5f7" font-size="18" font-weight="600">MCP 서버</text>
+                <text x="460" y="200" text-anchor="middle" fill="rgba(245,245,247,0.6)" font-size="14">7개 Tool · data4library</text>
+              </g>
+              <line class="step-arrow" data-stage="2" x1="460" y1="220" x2="460" y2="240" stroke="#6e6e73" stroke-width="1.4" marker-end="url(#arrow-chat)" />
+
+              <g class="step-node" data-stage="2">
+                <rect x="340" y="240" width="240" height="70" rx="10" fill="#1c1c1e" stroke="#3a3a3c" stroke-width="1.5" />
+                <text x="460" y="272" text-anchor="middle" fill="#f5f5f7" font-size="18" font-weight="600">정보나루 Open API</text>
+                <text x="460" y="296" text-anchor="middle" fill="rgba(245,245,247,0.6)" font-size="14">국립중앙도서관</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div class="flow-items-col">
+          <div class="feature-list" data-flow-items>
+            <div class="feature-item" data-stage="1">
+              <span class="feature-num">01</span>
+              <div>
+                <h3>챗봇 UI·스트리밍</h3>
+                <p>/api/chat 엔드포인트에서 LLM 응답을 SSE로 실시간 스트리밍하는 챗봇 UI를 구현했습니다. 대화 맥락은 MessageWindowChatMemory(최대 10건)로 관리하며, 웹은 세션 ID를, 텔레그램은 채팅방 ID를 conversationId로 사용해 같은 메모리를 공유합니다.</p>
+              </div>
+            </div>
+            <div class="feature-item" data-stage="2">
+              <span class="feature-num">02</span>
+              <div>
+                <h3>MCP 서버 구축 (7개 도구)</h3>
+                <p>국립중앙도서관 Open API(정보나루)를 searchBooks, searchHotBook, searchAvailableLibraries 등 7개 MCP 도구로 감싸, LLM이 대화 중 실시간 도서관 정보(대출 가능 여부, 인기 도서 등)가 필요하면 직접 호출하도록 구현했습니다.</p>
+              </div>
+            </div>
+            <div class="feature-item" data-stage="3">
+              <span class="feature-num">03</span>
+              <div>
+                <h3>MCP 클라이언트 통합</h3>
+                <p>ai-library-team1에 MCP Client(SSE)를 연결해, 챗봇 응답 생성 중 LLM이 필요 시 mcp-server의 도구를 호출하도록 통합했습니다.</p>
+                <figure class="proof-thumb">
+                  <img src="img/ai-library/chatbot-mcp-tools.png" alt="도서관 챗봇 대화 화면 — 대출 가능 도서관 조회, 급상승 도서 조회 질문에 MCP 도구를 호출해 실시간으로 답변" loading="lazy" />
+                  <figcaption>챗봇이 대화 중 MCP 도구(searchAvailableLibraries, searchHotTrendBooks)를 직접 호출한 실제 대화</figcaption>
+                </figure>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+
+      <div class="flow-card reveal">
+      <h4 style="text-align:left; font-size:1.35rem; font-weight:700; margin: 0 0 1.5rem; color: #ff9f0a;">RAG 추천 파이프라인</h4>
+      <div class="flow-sticky-wrap">
+        <div class="flow-diagram-col">
+          <div class="mini-flow mini-flow-vertical" data-flow-diagram>
+            <svg viewBox="0 0 600 940" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <marker id="arrow-rag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+                  <path d="M0,0 L10,5 L0,10 z" fill="#6e6e73" />
+                </marker>
+              </defs>
+
+              <g class="step-node" data-stage="1">
+                <rect x="20" y="20" width="280" height="80" rx="10" fill="rgba(0,113,227,0.15)" stroke="#0071e3" stroke-width="1.5" />
+                <text x="160" y="56" text-anchor="middle" fill="#f5f5f7" font-size="18" font-weight="600">질문 임베딩</text>
+                <text x="160" y="80" text-anchor="middle" fill="rgba(245,245,247,0.6)" font-size="14">BGE-M3</text>
+              </g>
+              <line class="step-arrow" data-stage="1" x1="160" y1="100" x2="160" y2="140" stroke="#6e6e73" stroke-width="1.4" marker-end="url(#arrow-rag)" />
+
+              <g class="step-node" data-stage="1">
+                <rect x="20" y="140" width="280" height="80" rx="10" fill="rgba(0,113,227,0.15)" stroke="#0071e3" stroke-width="1.5" />
+                <text x="160" y="176" text-anchor="middle" fill="#f5f5f7" font-size="18" font-weight="600">캐시 조회</text>
+                <text x="160" y="200" text-anchor="middle" fill="rgba(245,245,247,0.6)" font-size="14">cos ≥ 0.98</text>
+              </g>
+              <line class="step-arrow" x1="160" y1="220" x2="160" y2="260" stroke="#6e6e73" stroke-width="1.4" marker-end="url(#arrow-rag)" />
+              <text class="step-arrow" x="180" y="248" fill="rgba(245,245,247,0.6)" font-size="13">미스</text>
+              <line class="step-arrow" data-stage="1" x1="300" y1="180" x2="340" y2="180" stroke="#6e6e73" stroke-width="1.4" marker-end="url(#arrow-rag)" />
+              <text class="step-arrow" data-stage="1" x="320" y="170" text-anchor="middle" fill="rgba(245,245,247,0.6)" font-size="13">히트</text>
+              <g class="step-node" data-stage="1">
+                <rect x="340" y="140" width="240" height="80" rx="10" fill="#1c1c1e" stroke="#3a3a3c" stroke-width="1.5" />
+                <text x="460" y="176" text-anchor="middle" fill="rgba(245,245,247,0.85)" font-size="15" font-weight="600">즉시 반환</text>
+                <text x="460" y="200" text-anchor="middle" fill="rgba(245,245,247,0.6)" font-size="13.5">LLM 호출 생략</text>
+              </g>
+
+              <g class="step-node" data-stage="2">
+                <rect x="20" y="260" width="280" height="80" rx="10" fill="#1c1c1e" stroke="#3a3a3c" stroke-width="1.5" />
+                <text x="160" y="296" text-anchor="middle" fill="#f5f5f7" font-size="18" font-weight="600">하이브리드 검색</text>
+                <text x="160" y="320" text-anchor="middle" fill="rgba(245,245,247,0.6)" font-size="14">100권 후보 (팀원)</text>
+              </g>
+              <line class="step-arrow" data-stage="2" x1="160" y1="340" x2="160" y2="380" stroke="#6e6e73" stroke-width="1.4" marker-end="url(#arrow-rag)" />
+
+              <g class="step-node" data-stage="2">
+                <rect x="20" y="380" width="280" height="80" rx="10" fill="rgba(0,113,227,0.15)" stroke="#0071e3" stroke-width="1.5" />
+                <text x="160" y="416" text-anchor="middle" fill="#f5f5f7" font-size="18" font-weight="600">RRF≥0.02 필터</text>
+                <text x="160" y="440" text-anchor="middle" fill="rgba(245,245,247,0.6)" font-size="14">Top 5 재랭킹</text>
+              </g>
+              <line class="step-arrow" data-stage="2" x1="160" y1="460" x2="160" y2="500" stroke="#6e6e73" stroke-width="1.4" marker-end="url(#arrow-rag)" />
+
+              <g class="step-node" data-stage="2">
+                <rect x="20" y="500" width="280" height="80" rx="10" fill="rgba(0,113,227,0.15)" stroke="#0071e3" stroke-width="1.5" />
+                <text x="160" y="536" text-anchor="middle" fill="#f5f5f7" font-size="18" font-weight="600">프롬프트 구성</text>
+                <text x="160" y="560" text-anchor="middle" fill="rgba(245,245,247,0.6)" font-size="14">도서정보·리뷰요약</text>
+              </g>
+              <line class="step-arrow" data-stage="2" x1="160" y1="580" x2="160" y2="620" stroke="#6e6e73" stroke-width="1.4" marker-end="url(#arrow-rag)" />
+
+              <g class="step-node" data-stage="2">
+                <rect x="20" y="620" width="280" height="80" rx="10" fill="rgba(0,113,227,0.15)" stroke="#0071e3" stroke-width="1.5" />
+                <text x="160" y="656" text-anchor="middle" fill="#f5f5f7" font-size="18" font-weight="600">LLM 호출</text>
+                <text x="160" y="680" text-anchor="middle" fill="rgba(245,245,247,0.6)" font-size="14">Gemini·Ollama·Local</text>
+              </g>
+              <line class="step-arrow" data-stage="2" x1="160" y1="700" x2="160" y2="740" stroke="#6e6e73" stroke-width="1.4" marker-end="url(#arrow-rag)" />
+
+              <g class="step-node" data-stage="2">
+                <rect x="20" y="740" width="280" height="80" rx="10" fill="rgba(0,113,227,0.15)" stroke="#0071e3" stroke-width="1.5" />
+                <text x="160" y="776" text-anchor="middle" fill="#f5f5f7" font-size="18" font-weight="600">추천 이유 생성</text>
+                <text x="160" y="800" text-anchor="middle" fill="rgba(245,245,247,0.6)" font-size="14">relevance 정렬</text>
+              </g>
+              <line class="step-arrow" data-stage="2" x1="160" y1="820" x2="160" y2="860" stroke="#6e6e73" stroke-width="1.4" marker-end="url(#arrow-rag)" />
+
+              <g class="step-node" data-stage="2">
+                <rect x="20" y="860" width="280" height="60" rx="10" fill="rgba(0,113,227,0.15)" stroke="#0071e3" stroke-width="1.5" />
+                <text x="160" y="887" text-anchor="middle" fill="#f5f5f7" font-size="16" font-weight="600">캐시 저장 · 결과 반환</text>
+                <text x="160" y="907" text-anchor="middle" fill="rgba(245,245,247,0.6)" font-size="13">JSON (스트리밍 아님)</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div class="flow-items-col">
+          <div class="feature-list" data-flow-items>
+            <div class="feature-item" data-stage="1">
+              <span class="feature-num">01</span>
+              <div>
+                <h3>시맨틱 캐시</h3>
+                <p>질문 임베딩 간 코사인 유사도가 0.98 이상이면 LLM 호출 없이 캐시된 결과를 즉시 반환(TTL 30분, 최대 100건)해 불필요한 LLM 호출 비용과 지연을 절감했습니다.</p>
+                <figure class="proof-thumb">
+                  <img src="img/ai-library/rag-cache-log.png" alt="백엔드 로그 — SemanticCacheService의 캐시 미스 판정과 하이브리드 검색 RRF 병합, Top-K 선정, AI 모델 호출까지 이어지는 실제 실행 트레이스" loading="lazy" />
+                  <figcaption>실제 백엔드 로그 — 캐시 판정부터 Top-K 선정, LLM 호출까지의 실행 트레이스</figcaption>
+                </figure>
+              </div>
+            </div>
+            <div class="feature-item" data-stage="2">
+              <span class="feature-num">02</span>
+              <div>
+                <h3>RAG 추천 파이프라인</h3>
+                <p>검색 담당 팀원과 페어로 하이브리드 검색(RRF)을 구현하고, 그 결과를 임계값 필터링(RRF 0.02 이상) → 상위 5권 재랭킹 → 도서 정보/리뷰 요약 기반 프롬프트 구성 → LLM 호출 → 추천 이유 생성까지 이어지는 RAG 파이프라인으로 완성했습니다.</p>
+                <div class="proof-row">
+                  <figure class="proof-thumb">
+                    <img src="img/ai-library/hybrid-search-result.png" alt="하이브리드 검색 탭 실행 결과 — 검색 담당 팀원과 페어로 구현한 RRF 기반 하이브리드 검색의 실제 결과 화면" loading="lazy" />
+                    <figcaption>하이브리드 검색(RRF) 결과 — 이 100권이 RAG 파이프라인의 입력이 됨</figcaption>
+                  </figure>
+                  <figure class="proof-thumb">
+                    <img src="img/ai-library/ai-recommend-result.png" alt="AI 추천 탭 실행 결과 — Gemini 모델로 5권을 추천하며 각 권마다 관련성 점수와 추천 이유를 함께 표시" loading="lazy" />
+                    <figcaption>AI 추천 탭 실행 결과 — 관련성 점수·추천 이유가 붙은 최종 출력</figcaption>
+                  </figure>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-dark">
+    <div class="section-inner">
+      <h2 class="section-heading reveal" style="color: var(--color-text-dark);">트러블슈팅</h2>
+
+      <div class="issue-card reveal">
+        <h3>멀티스텝 Tool Calling 실패 → 복합 Tool로 단계 축소</h3>
+
+        <div class="issue-steps">
+          <div class="issue-step issue-step-problem">
+            <span class="issue-label">PROBLEM</span>
+            <h4>LLM이 컨텍스트를 무시하거나 Tool Calling 체인에 실패</h4>
+            <p>성능이 높지 않은 LLM을 사용할 경우, 순차적으로 Tool을 호출해서 결과를 만들어내야 하는 Tool Calling 방식에서 엉뚱한 Tool을 계속 호출하는 문제가 있었습니다. 결과가 나오는데 5분 이상 기다려야 했고, 그 결과마저도 원하는 답이 아닌 경우가 허다했습니다.</p>
+            <figure class="proof-thumb">
+              <img src="img/ai-library/mcp-tools-before.png" alt="리팩터링 전 McpConnectionLogger 로그 — searchLibrariesByBooks, checkBookExists 등 9개의 세분화된 Tool 목록, 도서관 조회와 소장 여부 확인이 별도 단계로 분리돼 있음" loading="lazy" />
+              <figcaption>리팩터링 전 — 도서관 조회(searchLibrariesByBooks)와 소장 여부 확인(checkBookExists)이 별도 Tool로 분리돼 있어 LLM이 순차 호출해야 했음</figcaption>
+            </figure>
+          </div>
+
+          <div class="issue-step issue-step-fix">
+            <span class="issue-label">SOLUTION</span>
+            <h4>저성능 모델용 복합 Tool로 단계 축소</h4>
+            <p class="issue-lead">도서관 검색과 소장·대출 가능 여부 확인을 하나로 묶은 복합 Tool(<code>searchAvailableLibraries</code>)을 만들어 두 단계 로직을 서비스 레이어에서 한 번에 처리했습니다.</p>
+            <p>LLM은 <code>ISBN13</code>과 지역만 넘기면 대출 가능한 도서관까지 받을 수 있어 저성능 모델도 안정적으로 사용할 수 있게 됐습니다.</p>
+            <p>고성능 모델(Gemini)에는 <code>searchBooks</code> → <code>searchAvailableLibraries</code>처럼 순차 조합 구조를 그대로 유지했습니다.</p>
+            <figure class="proof-thumb">
+              <img src="img/ai-library/mcp-tools-after.png" alt="리팩터링 후 McpConnectionLogger 로그 — searchAvailableLibraries로 통합된 7개 Tool 목록" loading="lazy" />
+              <figcaption>리팩터링 후 — searchLibrariesByBooks + checkBookExists가 searchAvailableLibraries 하나로 통합된 7개 Tool 목록</figcaption>
+            </figure>
+          </div>
+
+          <div class="issue-step issue-step-result">
+            <span class="issue-label">RESULT</span>
+            <h4>저성능 모델도 안정적으로 동작</h4>
+            <p>5분 이상 걸리던 AI의 Tool 호출 결과를 1분대로 단축할 수 있었고, 결과도 안정적인 답변을 받을 수 있었습니다.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="issue-card reveal">
+        <h3>항상 200만 주는 정보나루 API, 일관된 API 설계 원칙을 배우다</h3>
+
+        <div class="issue-steps">
+          <div class="issue-step issue-step-problem">
+            <span class="issue-label">PROBLEM</span>
+            <h4>성공/실패 구분이 안 되는 응답 스키마</h4>
+            <p>정보나루 Open API는 호출 성공 여부와 무관하게 항상 HTTP 200을 반환했고, 실패 시에도 별도 에러 응답 형식 없이 성공 응답과 동일한 response 키 안에 <code>errCode</code>/<code>error</code> 필드만 추가로 담겨왔습니다.</p>
+            <p>응답을 곧바로 원하는 타입으로 역직렬화하면 실패 케이스에서 파싱 에러가 나거나, 에러 필드가 조용히 무시되어 잘못된 성공 응답처럼 처리될 위험이 있었습니다.</p>
+            <div class="proof-row">
+              <figure class="proof-thumb">
+                <img src="img/ai-library/naru-api-success.png" alt="정상 요청 실행 결과 — HTTP 200과 함께 실제 도서관 데이터가 담긴 response" loading="lazy" />
+                <figcaption>정상 요청 — HTTP 200 + 실제 데이터</figcaption>
+              </figure>
+              <figure class="proof-thumb">
+                <img src="img/ai-library/naru-api-error-auth.png" alt="인증 실패 요청 실행 결과 — 이 경우에도 HTTP 200이며 response 안에 errCode: authErr만 추가로 담겨있음" loading="lazy" />
+                <figcaption>인증 실패해도 HTTP 200, errCode로만 구분</figcaption>
+              </figure>
+              <figure class="proof-thumb">
+                <img src="img/ai-library/naru-api-error-date.png" alt="파라미터 오류 요청 실행 결과 — 이 경우에도 HTTP 200이며 response 안에 errCode: dateEmptyErr만 추가로 담겨있음" loading="lazy" />
+                <figcaption>파라미터 오류도 마찬가지로 HTTP 200</figcaption>
+              </figure>
+            </div>
+          </div>
+
+          <div class="issue-step issue-step-fix">
+            <span class="issue-label">SOLUTION</span>
+            <h4>2단계 파싱으로 에러를 먼저 걸러내는 구조</h4>
+            <p class="issue-lead">팀원과 페어로, 모든 API 호출을 공통 실행 로직(<code>execute</code>)으로 통일해 원시 JSON을 먼저 느슨한 에러 체크용 DTO(<code>NaruApiResponse&lt;NaruErrorResponse&gt;</code>, <code>@JsonIgnoreProperties(ignoreUnknown = true)</code>)로 1차 파싱해 <code>errCode</code> 존재 여부부터 판별하고, 에러가 없을 때만 실제 타입으로 2차 역직렬화하는 구조를 설계했습니다.</p>
+            <p>이후 에러 코드를 문자열 대신 타입 안전한 <code>ErrorCode</code> enum으로 바꾸고, JSON 파싱 실패(<code>JsonParseException</code>)와 그 외 API 호출 실패를 <code>NaruApiException</code>으로 구분해 던지도록 다듬었습니다.</p>
+          </div>
+
+          <div class="issue-step issue-step-result">
+            <span class="issue-label">RESULT</span>
+            <h4>API 설계 원칙을 체득한 경험</h4>
+            <p>API를 설계할 때 성공/실패를 HTTP 상태 코드와 명확한 에러 코드 체계로 구분하고, 요청·응답 구조를 엔드포인트마다 다르지 않게 일관되게 유지해야 한다는 원칙을 직접 체감했습니다.</p>
+            <p>이후 직접 API를 설계할 때는 항상 이 기준(명확한 에러 코드, 일관된 요청/응답 스키마)을 우선적으로 고려하게 되었습니다.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-inner">
+      <h2 class="section-heading reveal">협업 및 역할</h2>
+      <div class="role-grid reveal">
+        <div class="role-col">
+          <span class="trouble-label">TEAM</span>
+          <h4>총 4명 (Batch+RabbitMQ 1, MCP 1, 개인화/Telegram/리뷰 1, 검색 1)</h4>
+          <p>RAG 파이프라인 + MCP 서버/클라이언트 담당</p>
+        </div>
+        <div class="role-col">
+          <span class="trouble-label">PROCESS</span>
+          <h4>Notion 기반 비동기 협업</h4>
+          <p>정기 회의 없이 Notion 기반 비동기 협업으로 진행</p>
+        </div>
+        <div class="role-col">
+          <span class="trouble-label">COMMUNICATION</span>
+          <h4>역할 분담이 아닌 실시간 페어 프로그래밍</h4>
+          <p>하이브리드 검색(RRF)은 미리 역할을 나눠 각자 작업한 뒤 합친 게 아니라, 검색 담당 팀원과 실시간으로 함께 코드를 작성하며 만들었습니다. 검색 결과 스코어링 방식이나 RAG로 넘겨줄 데이터 형식처럼 두 기능이 맞닿는 지점에서 계속 의견을 맞춰야 했던 만큼, 문서로 인터페이스를 정의하고 나중에 통합하는 방식보다 함께 짜면서 바로바로 조율하는 방식을 택했습니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="detail-footer-nav">
+    <a href="../index.html#projects">&larr; 다른 프로젝트 보기</a>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 조창희</p>
+  </footer>
+
+  <div class="lightbox" id="lightbox" hidden>
+    <img class="lightbox-img" id="lightboxImg" src="" alt="" />
+  </div>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

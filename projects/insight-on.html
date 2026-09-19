@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Insight On — 조창희 포트폴리오</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <header id="nav">
+    <div class="nav-inner">
+      <a href="../index.html#hero" class="nav-logo">조창희</a>
+      <nav>
+        <a href="../index.html#about">소개</a>
+        <a href="../index.html#projects">프로젝트</a>
+        <a href="../index.html#contact">연락처</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="detail-hero">
+    <div class="section-inner">
+      <a href="../index.html#projects" class="back-link">&larr; 프로젝트 목록</a>
+      <span class="detail-meta">TEAM PROJECT · 2026.07 – 2026.09 · 8인</span>
+      <h1>Insight On</h1>
+      <p class="lead">IoT 센서를 MQTT로 수집해 실시간으로 모니터링하고, 자동화(Rule Engine)와 AI 기반 지능형 제어로 자동 대응하는 Multi-Tenant 스마트 오피스 관제 플랫폼을 MSA로 설계·구현했습니다.</p>
+      <div class="project-stack">
+        <span>Spring Boot</span>
+        <span>Java 21</span>
+        <span>Kubernetes</span>
+        <span>PostgreSQL</span>
+        <span>Redis</span>
+        <span>InfluxDB</span>
+        <span>RabbitMQ</span>
+        <span>Docker</span>
+        <span>ArgoCD / Rancher</span>
+        <span>Grafana / Loki / Alloy</span>
+        <span>Cloudflare / Nginx</span>
+        <span>Zipkin</span>
+      </div>
+      <p style="margin-top: 1.5rem;">
+        <a class="project-link" href="https://github.com/nhnacademy-aiot3-insighton" target="_blank" rel="noopener">GitHub 보기 &rarr;</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-inner">
+      <h2 class="section-heading reveal">내 역할</h2>
+      <div class="section-inner reveal" style="padding:0; text-align:left; max-width: 800px; margin: 0 0 3rem;">
+        <p class="lead" style="margin:0; text-align:left;">
+          Infra 전 영역(Kubernetes 클러스터 구성, CI/CD 파이프라인, GitOps 배포, Observability 스택, 클러스터 운영)을 담당했습니다.
+          팀 내 유일한 Infra 담당으로서, 인프라 변경 사항이 다른 팀원의 작업을 방해하지 않도록 구조를 설계하는 데 특히 신경 썼습니다.
+          이 외에도 필요한 지점에서는 Redis 기반 실시간 갱신 기능처럼 서비스 로직까지 직접 구현했습니다.
+        </p>
+      </div>
+
+      <div class="feature-list reveal">
+        <div class="feature-item">
+          <span class="feature-num">01</span>
+          <div>
+            <h3>전체 시스템 아키텍처 설계</h3>
+            <p>Cloudflare, Gateway, Auth, Core, RuleEngine, AI 등 MSA 구성 요소 간 통신 구조와 네임스페이스, 각 서비스의 DB/캐시 분리 전략을 설계했습니다.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <span class="feature-num">02</span>
+          <div>
+            <h3>Docker Compose → Kubernetes Migration</h3>
+            <p>Docker Compose 기반 단일 서버 배포 환경을 Kubernetes 클러스터로 전환했습니다.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <span class="feature-num">03</span>
+          <div>
+            <h3>Cloudflare Tunnel 기반 무인바운드 네트워킹</h3>
+            <p>방화벽 정책상 인바운드 포트 개방이 어려운 환경에서, Cloudflare Tunnel(cloudflared)로 아웃바운드 연결만 열어 외부 트래픽을 수신했습니다. 포트 개방 없이 서비스를 노출하고, replica 2개로 이중화 구성했습니다.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <span class="feature-num">04</span>
+          <div>
+            <h3>Grafana(Loki, Alloy) 기반 로그 수집</h3>
+            <p>클러스터 전역 로그를 Alloy로 수집해 Loki·Grafana로 파이프라인을 구성했습니다.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <span class="feature-num">05</span>
+          <div>
+            <h3>Redis Pub/Sub 기반 실시간 대시보드 갱신</h3>
+            <p>Core에서 처리한 센서 이벤트를 Redis pub/sub 채널로 발행하고, Front가 SSE(Server-Sent Events)로 구독해 대시보드가 새로고침 없이 실시간으로 갱신되도록 구현했습니다.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-dark" id="architecture-master">
+    <div class="zoom-scrolly" id="archScrolly">
+      <div class="zoom-sticky" id="archSticky">
+
+        <div class="scroll-hint" id="scrollHint">
+          <span>스크롤해서 살펴보기</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+        </div>
+
+        <div class="arch-scene" id="sceneOverview">
+          <div class="arch-scene-inner">
+            <div class="section-inner">
+              <h2 class="section-heading" style="color: var(--color-text-dark);">아키텍처</h2>
+              <p class="lead" style="text-align:left; margin: 0 0 1.5rem; max-width: 760px;">실제 서비스 아키텍처입니다. <strong style="color:#3aa0ff; text-shadow: 0 0 14px rgba(58,160,255,0.55);">파란색</strong>이 제가 설계·구축한 인프라 영역이고, <strong style="color:rgba(245,245,247,0.85);">회색</strong>은 팀원이 개발한 서비스 로직·외부 연동입니다.</p>
+            </div>
+            <div class="diagram-wrap" style="max-width: 1500px;">
+        <svg class="diagram diagram--wide" viewBox="-80 0 2470 1860" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="arrow-io" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="#9a9a9e" />
+            </marker>
+            <marker id="arrow-io-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="#ff453a" />
+            </marker>
+            <marker id="arrow-io-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="#ff9500" />
+            </marker>
+            <marker id="arrow-io-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="#4da3ff" />
+            </marker>
+          </defs>
+
+          <!-- External client -->
+          <rect x="-60" y="40" width="198.37" height="58.19" rx="13.22" fill="#1c1c1e" stroke="#3a3a3c" stroke-width="1.98" />
+          <text x="39.19" y="75.71" text-anchor="middle" fill="#f5f5f7" font-size="21.4">Browser</text>
+
+          <rect x="-60" y="138" width="198.37" height="71.41" rx="13.22" fill="#1c1c1e" stroke="#3a3a3c" stroke-width="1.98" />
+          <text x="39.19" y="167.09" text-anchor="middle" fill="#f5f5f7" font-size="21.4" font-weight="600">Cloudflare Edge</text>
+          <text x="39.19" y="190.9" text-anchor="middle" fill="rgba(245,245,247,0.6)" font-size="21.4">Anycast · TLS 종료</text>
+
+          <line x1="39.19" y1="98.19" x2="39.19" y2="138" stroke="#9a9a9e" stroke-width="2.51" marker-end="url(#arrow-io)" />
+          <path d="M39.19,209.41 L39.19,497.06 L210,497.06" stroke="#9a9a9e" stroke-width="2.51" fill="none" marker-end="url(#arrow-io)" />
+          <text x="32" y="486" fill="rgba(245,245,247,0.6)" font-size="21.4">암호화 터널</text>
+
+          <!-- Kubernetes cluster boundary: shrunk to end before the RabbitMQ
+               column, so RabbitMQ now sits outside the insighton namespace. -->
+          <rect x="190" y="180" width="1909" height="1532" rx="23.8" fill="rgba(0,113,227,0.03)" stroke="#0071e3" stroke-width="2.64" stroke-dasharray="9.26 6.61" />
+          <text x="219.09" y="219" fill="#4da3ff" font-size="27" font-weight="600">Kubernetes Cluster · namespace: insighton</text>
+          <text x="219.09" y="241" fill="rgba(245,245,247,0.6)" font-size="19">Bare-metal · 3 Nodes 클러스터</text>
+
+          <!-- Cloudflare Tunnel group: taller top padding so the "Cloudflare
+               Tunnel" label clears the instance boxes below it, and the group
+               is re-centered so cloudflared -> Service still reads as one
+               straight horizontal line. -->
+          <rect x="210" y="415" width="220" height="164" rx="15.87" fill="rgba(0,113,227,0.1)" stroke="#0071e3" stroke-width="1.98" stroke-dasharray="5.29 5.29" />
+          <text x="320" y="437" text-anchor="middle" fill="#4da3ff" font-size="14" font-weight="600">Cloudflare Tunnel</text>
+          <rect x="215" y="447" width="206" height="46" rx="10.58" fill="rgba(0,113,227,0.18)" stroke="#0071e3" stroke-width="1.98" />
+          <text x="318" y="476" text-anchor="middle" fill="#f5f5f7" font-size="21.4">cloudflared #1</text>
+          <rect x="215" y="518" width="206" height="46" rx="10.58" fill="rgba(0,113,227,0.18)" stroke="#0071e3" stroke-width="1.98" />
+          <text x="318" y="547" text-anchor="middle" fill="#f5f5f7" font-size="21.4">cloudflared #2</text>
+
+          <!-- cloudflared -> Service reads as one straight horizontal line, not a
+               vertical drop, matching the diagram's overall left-to-right flow. -->
+          <line x1="430" y1="497.06" x2="456" y2="497.06" stroke="#9a9a9e" stroke-width="2.51" marker-end="url(#arrow-io)" />
+          <rect x="456" y="464" width="119.02" height="66.12" rx="13.22" fill="rgba(0,113,227,0.18)" stroke="#0071e3" stroke-width="1.98" />
+          <text x="515.51" y="503.68" text-anchor="middle" fill="#f5f5f7" font-size="21.4" font-weight="600">Service</text>
+
+          <!-- Ingress column: spread down the cluster's full free height,
+               grafana-ingress at the very top (nearest Grafana above it),
+               nginx-ingress at the very bottom. -->
+          <rect x="664" y="230" width="251.27" height="70" rx="10.58" fill="rgba(0,113,227,0.18)" stroke="#0071e3" stroke-width="1.98" />
+          <text x="789.64" y="271.61" text-anchor="middle" fill="#f5f5f7" font-size="21.4">grafana-ingress</text>
+
+          <rect x="664" y="330" width="251.27" height="70" rx="10.58" fill="rgba(0,113,227,0.18)" stroke="#0071e3" stroke-width="1.98" />
+          <text x="789.64" y="371.61" text-anchor="middle" fill="#f5f5f7" font-size="21.4">zipkin-ingress</text>
+
+          <rect x="664" y="430" width="251.27" height="70" rx="10.58" fill="rgba(0,113,227,0.18)" stroke="#0071e3" stroke-width="1.98" />
+          <text x="789.64" y="471.61" text-anchor="middle" fill="#f5f5f7" font-size="21.4">influxdb-ingress</text>
+
+          <!-- nginx-ingress now sits level with Front/Gateway, which have moved
+               down between the RuleEngine and AI rows (see below), so the whole
+               nginx-ingress -> Front -> Gateway hand-off still reads as one
+               straight line at that new height. -->
+          <rect x="664" y="931" width="251.27" height="70" rx="10.58" fill="rgba(0,113,227,0.18)" stroke="#0071e3" stroke-width="1.98" />
+          <text x="789.64" y="972.61" text-anchor="middle" fill="#f5f5f7" font-size="21.4">nginx-Ingress</text>
+
+          <!-- Service -> each ingress: bent (elbow) connectors sharing one short
+               trunk out of Service, rather than diagonals straight into each box. -->
+          <path d="M575.02,497.06 L615,497.06 L615,265 L664,265" stroke="#9a9a9e" stroke-width="2.38" fill="none" marker-end="url(#arrow-io)" />
+          <path d="M575.02,497.06 L615,497.06 L615,365 L664,365" stroke="#9a9a9e" stroke-width="2.38" fill="none" marker-end="url(#arrow-io)" />
+          <path d="M575.02,497.06 L615,497.06 L615,465 L664,465" stroke="#9a9a9e" stroke-width="2.38" fill="none" marker-end="url(#arrow-io)" />
+          <path d="M575.02,497.06 L615,497.06 L615,966 L664,966" stroke="#9a9a9e" stroke-width="2.38" fill="none" marker-end="url(#arrow-io)" />
+
+          <!-- Front and Gateway each drawn as one bundled group (dashed outer box,
+               #1/#2 stacked vertically inside — same convention as
+               Auth/RuleEngine/AI/Core, same taller top padding so the label
+               clears the instance boxes). Positioned between the RuleEngine and
+               AI rows, so nginx-ingress -> Front -> Gateway sits in that gap. -->
+          <rect x="970" y="884" width="183.7" height="164" rx="15.87" fill="none" stroke="#6e6e73" stroke-width="1.85" stroke-dasharray="6.61 3.97" />
+          <text x="1061.85" y="906" text-anchor="middle" fill="rgba(245,245,247,0.78)" font-size="21.4" font-weight="500">Front</text>
+          <rect x="985" y="916" width="158.7" height="46" rx="10.58" fill="#1c1c1e" stroke="#3a3a3c" stroke-width="1.71" />
+          <text x="1064.35" y="945" text-anchor="middle" fill="#f5f5f7" font-size="21.4">Front #1</text>
+          <rect x="985" y="987" width="158.7" height="46" rx="10.58" fill="#1c1c1e" stroke="#3a3a3c" stroke-width="1.71" />
+          <text x="1064.35" y="1016" text-anchor="middle" fill="#f5f5f7" font-size="21.4">Front #2</text>
+
+          <rect x="1194" y="884" width="198.37" height="164" rx="15.87" fill="none" stroke="#0071e3" stroke-width="1.85" stroke-dasharray="6.61 3.97" />
+          <text x="1293.19" y="906" text-anchor="middle" fill="#4da3ff" font-size="21.4" font-weight="500">Gateway</text>
+          <rect x="1209" y="916" width="158.7" height="46" rx="10.58" fill="rgba(0,113,227,0.18)" stroke="#0071e3" stroke-width="1.71" />
+          <text x="1288.35" y="945" text-anchor="middle" fill="#f5f5f7" font-size="21.4">Gateway #1</text>
+          <rect x="1209" y="987" width="158.7" height="46" rx="10.58" fill="rgba(0,113,227,0.18)" stroke="#0071e3" stroke-width="1.71" />
+          <text x="1288.35" y="1016" text-anchor="middle" fill="#f5f5f7" font-size="21.4">Gateway #2</text>
+
+          <line x1="1153.7" y1="966" x2="1194" y2="966" stroke="#9a9a9e" stroke-width="2.64" marker-end="url(#arrow-io)" />
+
+          <!-- Zipkin sits level with zipkin-ingress — a straight horizontal line,
+               not a diagonal. Same treatment for InfluxDB. -->
+          <rect x="964" y="330" width="251.27" height="70" rx="10.58" fill="rgba(0,113,227,0.18)" stroke="#0071e3" stroke-width="1.98" />
+          <text x="1089.64" y="371.61" text-anchor="middle" fill="#f5f5f7" font-size="21.4">Zipkin (트레이싱)</text>
+
+          <rect x="964" y="430" width="251.27" height="70" rx="10.58" fill="rgba(0,113,227,0.18)" stroke="#0071e3" stroke-width="1.98" />
+          <text x="1089.64" y="471.61" text-anchor="middle" fill="#f5f5f7" font-size="21.4">InfluxDB (텔레메트리)</text>
+
+          <line x1="915.27" y1="966" x2="970" y2="966" stroke="#9a9a9e" stroke-width="2.38" marker-end="url(#arrow-io)" />
+          <line x1="915.27" y1="365" x2="964" y2="365" stroke="#9a9a9e" stroke-width="2.38" marker-end="url(#arrow-io)" />
+          <line x1="915.27" y1="465" x2="964" y2="465" stroke="#9a9a9e" stroke-width="2.38" marker-end="url(#arrow-io)" />
+
+          <!-- Logging namespace: Grafana / Loki / Alloy now sit in a single row
+               (일렬) so grafana-ingress -> Grafana -> Loki -> Alloy reads as one
+               straight left-to-right flow; namespace box widened to fit. -->
+          <rect x="964" y="20" width="490" height="120" rx="21.16" fill="rgba(0,113,227,0.06)" stroke="#0071e3" stroke-width="2.64" stroke-dasharray="9.26 6.61" />
+          <text x="985.16" y="49.09" fill="#4da3ff" font-size="24" font-weight="600">Kubernetes · insighton-logging</text>
+          <rect x="979" y="63" width="119.02" height="47.61" rx="10.58" fill="rgba(0,113,227,0.18)" stroke="#0071e3" stroke-width="1.98" />
+          <text x="1038.51" y="93.42" text-anchor="middle" fill="#f5f5f7" font-size="21.4">Grafana</text>
+          <rect x="1113.02" y="63" width="119.02" height="47.61" rx="10.58" fill="rgba(0,113,227,0.18)" stroke="#0071e3" stroke-width="1.98" />
+          <text x="1172.53" y="93.42" text-anchor="middle" fill="#f5f5f7" font-size="21.4">Loki</text>
+          <rect x="1247.04" y="59.8" width="180" height="54" rx="10.58" fill="rgba(0,113,227,0.18)" stroke="#0071e3" stroke-width="1.98" />
+          <text x="1337.04" y="90" text-anchor="middle" fill="#f5f5f7" font-size="21.4">Alloy ×3</text>
+          <text x="1337.04" y="106" text-anchor="middle" fill="rgba(245,245,247,0.6)" font-size="21.4">DaemonSet</text>
+
+          <path d="M789.64,230 L789.64,170 L1038.51,170 L1038.51,110.61" stroke="#4da3ff" stroke-width="2.9" fill="none" marker-end="url(#arrow-io-blue)" />
+          <line x1="1008.02" y1="86.8" x2="1023.02" y2="86.8" stroke="#9a9a9e" stroke-width="2.12" marker-end="url(#arrow-io)" />
+          <line x1="1142.04" y1="86.8" x2="1157.04" y2="86.8" stroke="#9a9a9e" stroke-width="2.12" marker-end="url(#arrow-io)" />
+
+          <!-- Core services (mine: gateway/networking already drawn; these boxes are team logic).
+               Each is drawn as two physically separate instances (#1/#2), not a single
+               box with a "×2" label — this is the redundancy made concrete. -->
+          <rect x="1452" y="300" width="380" height="164" rx="15.87" fill="none" stroke="#6e6e73" stroke-width="1.85" stroke-dasharray="6.61 3.97" />
+          <text x="1642" y="322" text-anchor="middle" fill="rgba(245,245,247,0.78)" font-size="17" font-weight="500">Auth Service</text>
+          <rect x="1536.2" y="332" width="211.6" height="46" rx="10.58" fill="#1c1c1e" stroke="#3a3a3c" stroke-width="1.71" />
+          <text x="1642" y="361" text-anchor="middle" fill="#f5f5f7" font-size="21.4">Auth #1</text>
+          <rect x="1536.2" y="403" width="211.6" height="46" rx="10.58" fill="#1c1c1e" stroke="#3a3a3c" stroke-width="1.71" />
+          <text x="1642" y="432" text-anchor="middle" fill="#f5f5f7" font-size="21.4">Auth #2</text>
+
+          <rect x="1452" y="620" width="380" height="164" rx="15.87" fill="none" stroke="#6e6e73" stroke-width="1.85" stroke-dasharray="6.61 3.97" />
+          <text x="1642" y="642" text-anchor="middle" fill="rgba(245,245,247,0.78)" font-size="17" font-weight="500">RuleEngine Service · StatefulSet</text>
+          <rect x="1536.2" y="652" width="211.6" height="46" rx="10.58" fill="#1c1c1e" stroke="#3a3a3c" stroke-width="1.71" />
+          <text x="1642" y="681" text-anchor="middle" fill="#f5f5f7" font-size="21.4">Engine #1</text>
+          <rect x="1536.2" y="723" width="211.6" height="46" rx="10.58" fill="#1c1c1e" stroke="#3a3a3c" stroke-width="1.71" />
+          <text x="1642" y="752" text-anchor="middle" fill="#f5f5f7" font-size="21.4">Engine #2</text>
+
+          <rect x="1452" y="1148" width="380" height="164" rx="15.87" fill="none" stroke="#6e6e73" stroke-width="1.85" stroke-dasharray="6.61 3.97" />
+          <text x="1642" y="1170" text-anchor="middle" fill="rgba(245,245,247,0.78)" font-size="17" font-weight="500">AI Service</text>
+          <rect x="1536.2" y="1180" width="211.6" height="46" rx="10.58" fill="#1c1c1e" stroke="#3a3a3c" stroke-width="1.71" />
+          <text x="1642" y="1209" text-anchor="middle" fill="#f5f5f7" font-size="21.4">AI #1</text>
+          <rect x="1536.2" y="1251" width="211.6" height="46" rx="10.58" fill="#1c1c1e" stroke="#3a3a3c" stroke-width="1.71" />
+          <text x="1642" y="1280" text-anchor="middle" fill="#f5f5f7" font-size="21.4">AI #2</text>
+
+          <rect x="1452" y="1468" width="380" height="164" rx="15.87" fill="none" stroke="#6e6e73" stroke-width="1.85" stroke-dasharray="6.61 3.97" />
+          <text x="1642" y="1490" text-anchor="middle" fill="rgba(245,245,247,0.78)" font-size="17" font-weight="500">Core Service · StatefulSet</text>
+          <rect x="1536.2" y="1500" width="211.6" height="46" rx="10.58" fill="#1c1c1e" stroke="#3a3a3c" stroke-width="1.71" />
+          <text x="1642" y="1529" text-anchor="middle" fill="#f5f5f7" font-size="21.4">Core #1</text>
+          <rect x="1536.2" y="1571" width="211.6" height="46" rx="10.58" fill="#1c1c1e" stroke="#3a3a3c" stroke-width="1.71" />
+          <text x="1642" y="1600" text-anchor="middle" fill="#f5f5f7" font-size="21.4">Core #2</text>
+
+          <!-- Gateway now sits between RuleEngine and AI; its fanout trunk runs
+               straight up to Auth/RuleEngine and straight down to AI/Core. -->
+          <path d="M1392.37,966 L1420,966 L1420,382 L1452,382" stroke="#9a9a9e" stroke-width="2.38" fill="none" marker-end="url(#arrow-io)" />
+          <path d="M1392.37,966 L1420,966 L1420,702 L1452,702" stroke="#9a9a9e" stroke-width="2.38" fill="none" marker-end="url(#arrow-io)" />
+          <path d="M1392.37,966 L1420,966 L1420,1230 L1452,1230" stroke="#9a9a9e" stroke-width="2.38" fill="none" marker-end="url(#arrow-io)" />
+          <path d="M1392.37,966 L1420,966 L1420,1550 L1452,1550" stroke="#9a9a9e" stroke-width="2.38" fill="none" marker-end="url(#arrow-io)" />
+
+          <!-- Redis and DB are the same size and aligned in one column; each still
+               gets its own bent connector straight out of the API (exiting at a
+               different point on the API's edge so the two lines stay visually
+               separate, not a chain through Redis). -->
+          <g font-size="21.4" fill="#f5f5f7">
+            <rect x="1895" y="250.48" width="180" height="119.02" rx="13.22" fill="#1c1c1e" stroke="#3a3a3c" stroke-width="1.98" />
+            <text x="1985" y="316.59" text-anchor="middle">Redis</text>
+            <rect x="1895" y="570.48" width="180" height="119.02" rx="13.22" fill="#1c1c1e" stroke="#3a3a3c" stroke-width="1.98" />
+            <text x="1985" y="636.59" text-anchor="middle">Redis</text>
+            <rect x="1895" y="1098.48" width="180" height="119.02" rx="13.22" fill="#1c1c1e" stroke="#3a3a3c" stroke-width="1.98" />
+            <text x="1985" y="1164.59" text-anchor="middle">Redis</text>
+            <rect x="1895" y="1418.48" width="180" height="119.02" rx="13.22" fill="#1c1c1e" stroke="#3a3a3c" stroke-width="1.98" />
+            <text x="1985" y="1484.59" text-anchor="middle">Redis</text>
+          </g>
+          <path d="M1832,382 L1862,382 L1862,309.99 L1895,309.99" stroke="#9a9a9e" stroke-width="2.38" fill="none" marker-end="url(#arrow-io)" />
+          <path d="M1832,702 L1862,702 L1862,629.99 L1895,629.99" stroke="#9a9a9e" stroke-width="2.38" fill="none" marker-end="url(#arrow-io)" />
+          <path d="M1832,1230 L1862,1230 L1862,1157.99 L1895,1157.99" stroke="#9a9a9e" stroke-width="2.38" fill="none" marker-end="url(#arrow-io)" />
+          <path d="M1832,1550 L1862,1550 L1862,1477.99 L1895,1477.99" stroke="#9a9a9e" stroke-width="2.38" fill="none" marker-end="url(#arrow-io)" />
+
+          <!-- Postgres DB: same size as Redis; Redis and DB sit symmetrically
+               above/below the API's own center so the fork out of the API splits
+               into two equal-length branches. -->
+          <g font-size="21.4" fill="#f5f5f7">
+            <rect x="1895" y="394.5" width="180" height="119.02" rx="13.22" fill="#1c1c1e" stroke="#3a3a3c" stroke-width="1.98" />
+            <text x="1985" y="460.61" text-anchor="middle">AUTH DB</text>
+            <rect x="1895" y="714.5" width="180" height="119.02" rx="13.22" fill="#1c1c1e" stroke="#3a3a3c" stroke-width="1.98" />
+            <text x="1985" y="780.61" text-anchor="middle">RULEENGINE DB</text>
+            <rect x="1895" y="1242.5" width="180" height="119.02" rx="13.22" fill="#1c1c1e" stroke="#3a3a3c" stroke-width="1.98" />
+            <text x="1985" y="1308.61" text-anchor="middle">AI DB</text>
+            <rect x="1895" y="1562.5" width="180" height="119.02" rx="13.22" fill="#1c1c1e" stroke="#3a3a3c" stroke-width="1.98" />
+            <text x="1985" y="1628.61" text-anchor="middle">CORE DB</text>
+          </g>
+          <path d="M1832,382 L1862,382 L1862,454.01 L1895,454.01" stroke="#9a9a9e" stroke-width="2.38" fill="none" marker-end="url(#arrow-io)" />
+          <path d="M1832,702 L1862,702 L1862,774.01 L1895,774.01" stroke="#9a9a9e" stroke-width="2.38" fill="none" marker-end="url(#arrow-io)" />
+          <path d="M1832,1230 L1862,1230 L1862,1302.01 L1895,1302.01" stroke="#9a9a9e" stroke-width="2.38" fill="none" marker-end="url(#arrow-io)" />
+          <path d="M1832,1550 L1862,1550 L1862,1622.01 L1895,1622.01" stroke="#9a9a9e" stroke-width="2.38" fill="none" marker-end="url(#arrow-io)" />
+
+          <!-- Telemetry Redis: Core → publish → Telemetry Redis → SSE → Front (mine).
+               Moved down to sit on the same line as Core Service, since that's
+               the service it's tied to; the Front connector is a long straight
+               drop (same x-center as Front), the Core connector a short elbow. -->
+          <rect x="946.85" y="1497.5" width="230" height="105" rx="13.22" fill="rgba(255,69,58,0.16)" stroke="#ff453a" stroke-width="1.98" />
+          <text x="1061.85" y="1527.5" text-anchor="middle" fill="#f5f5f7" font-size="21.4" font-weight="600">Telemetry Redis</text>
+          <text x="1061.85" y="1554.5" text-anchor="middle" fill="rgba(245,245,247,0.7)" font-size="21.4">Core publish</text>
+          <text x="1061.85" y="1581.5" text-anchor="middle" fill="rgba(245,245,247,0.7)" font-size="21.4">Front · SSE 구독</text>
+
+          <path d="M1452,1550 L1176.85,1550" stroke="#ff453a" stroke-width="1.98" fill="none" marker-end="url(#arrow-io-red)" />
+          <path d="M1061.85,1497.5 L1061.85,1048" stroke="#ff453a" stroke-width="1.98" stroke-dasharray="6.61 5.29" fill="none" marker-end="url(#arrow-io-red)" />
+          <text x="1061.85" y="1627.5" text-anchor="middle" fill="#ff453a" font-size="21.4" font-weight="600">Core → Telemetry Redis → Front (SSE, 담당)</text>
+
+          <!-- RabbitMQ connections: each service (RuleEngine, AI, Core) gets its own
+               independent line straight into RabbitMQ, with only a single bend
+               each. RabbitMQ is now vertically centered between the RuleEngine
+               and AI rows, so RuleEngine enters from the top and AI enters from
+               the bottom, both close by; Core's line travels further down to
+               its own point on the bottom edge. Every bend's vertical segment
+               sits outside the namespace boundary (right edge x=2067). -->
+          <path d="M1832,708 L2250.41,708 L2250.41,800.7" stroke="#ff9500" stroke-width="2.51" fill="none" marker-end="url(#arrow-io-orange)" />
+          <path d="M1832,1236 L2210.41,1236 L2210.41,1131.32" stroke="#ff9500" stroke-width="2.51" fill="none" marker-end="url(#arrow-io-orange)" />
+          <path d="M1832,1556 L2290.41,1556 L2290.41,1131.32" stroke="#ff9500" stroke-width="2.51" fill="none" marker-end="url(#arrow-io-orange)" />
+
+          <rect x="2138" y="800.7" width="224.82" height="330.62" rx="18.52" fill="rgba(255,149,0,0.16)" stroke="#ff9500" stroke-width="2.64" />
+          <text x="2250.41" y="846.99" text-anchor="middle" fill="#f5f5f7" font-size="21.4" font-weight="600">RabbitMQ</text>
+          <text x="2250.41" y="876.08" text-anchor="middle" fill="rgba(245,245,247,0.75)" font-size="21.4">X-Consistent Hash</text>
+          <text x="2250.41" y="899.89" text-anchor="middle" fill="rgba(245,245,247,0.75)" font-size="21.4">Exchange</text>
+          <text x="2250.41" y="972.62" text-anchor="middle" fill="rgba(245,245,247,0.6)" font-size="21.4">RuleEngine · AI · Core</text>
+          <text x="2250.41" y="992.46" text-anchor="middle" fill="rgba(245,245,247,0.6)" font-size="21.4">Topic 발행/구독</text>
+
+          <!-- Cluster operations tooling: external control-plane tools, so they
+               sit outside the insighton namespace boundary (above it), bigger
+               and easier to read. -->
+          <rect x="1558" y="40" width="150" height="50" rx="25" fill="rgba(0,113,227,0.16)" stroke="#0071e3" stroke-width="2.38" />
+          <text x="1633" y="71" text-anchor="middle" fill="#4da3ff" font-size="21.4">Rancher</text>
+          <rect x="1728" y="40" width="150" height="50" rx="25" fill="rgba(0,113,227,0.16)" stroke="#0071e3" stroke-width="2.38" />
+          <text x="1803" y="71" text-anchor="middle" fill="#4da3ff" font-size="21.4">ArgoCD</text>
+
+          <!-- MQTT gateway: sits outside the insighton namespace boundary (an
+               external IoT ingress point, not a cluster-internal pod) — its
+               connector crosses the boundary edge to reach Core, same visual
+               language as Browser/Cloudflare Edge connecting in from outside. -->
+          <path d="M1564.41,1752 L1564.41,1632" stroke="#9a9a9e" stroke-width="2.51" fill="none" marker-end="url(#arrow-io)" />
+          <rect x="1452" y="1752" width="224.82" height="66.12" rx="13.22" fill="#1c1c1e" stroke="#3a3a3c" stroke-width="1.98" />
+          <text x="1564.41" y="1791.67" text-anchor="middle" fill="#f5f5f7" font-size="21.4">MQTT gateway</text>
+
+          <!-- Legend (stacked rows to avoid overlap with the long text) -->
+          <rect x="210" y="1752" width="21.16" height="21.16" rx="3.97" fill="rgba(0,113,227,0.4)" stroke="#0071e3" />
+          <text x="241.74" y="1769.19" font-size="21.4" fill="rgba(245,245,247,0.85)">담당 영역 — 네트워킹 · 메시징 · Observability · Rancher/ArgoCD</text>
+
+          <rect x="210" y="1780" width="21.16" height="21.16" rx="3.97" fill="#1c1c1e" stroke="#3a3a3c" />
+          <text x="241.74" y="1797.19" font-size="21.4" fill="rgba(245,245,247,0.85)">팀원 담당 — 서비스 비즈니스 로직</text>
+
+          <line x1="210" y1="1806" x2="240" y2="1806" stroke="#ff453a" stroke-width="2.12" stroke-dasharray="6.61 5.29" />
+          <text x="260.25" y="1821" font-size="21.4" fill="rgba(245,245,247,0.7)">= Telemetry Redis → SSE 실시간 구독 (빨강)</text>
+        </svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="arch-scene" id="sceneDataflow">
+          <div class="arch-scene-inner">
+            <div class="section-inner" style="padding-bottom: 0;">
+              <h2 class="section-heading" style="color: var(--color-text-dark);">데이터 흐름</h2>
+              <p class="lead" style="text-align:left; margin: 0 0 1.25rem; max-width: 800px;">같은 다이어그램 위에서 두 가지 흐름을 살펴볼 수 있습니다. <strong style="color:#bf5af2;">보라색</strong>은 클라이언트 요청·조회 경로, <strong style="color:#ff9f0a;">주황색</strong>은 센서 데이터(텔레메트리) 경로입니다.</p>
+              <div class="flow-tabs" role="tablist">
+                <button type="button" class="flow-tab active" data-flow-mode="request">01 · 클라이언트 요청</button>
+                <button type="button" class="flow-tab" data-flow-mode="packet">02 · 패킷 흐름</button>
+              </div>
+              <div class="flow-controls">
+                <button type="button" id="flowPrev" class="flow-nav-btn" aria-label="이전 단계">&larr;</button>
+                <div class="flow-step-text">
+                  <span class="flow-step-badge" id="flowStepBadge">1 / 8</span>
+                  <span class="flow-step-desc" id="flowStepDesc">Front &rarr; Gateway · API 요청</span>
+                </div>
+                <button type="button" id="flowNext" class="flow-nav-btn" aria-label="다음 단계">&rarr;</button>
+                <div class="flow-dots" id="flowDots"></div>
+              </div>
+            </div>
+            <div class="diagram-wrap" style="max-width: 1200px;">
+        <svg id="flowSvg" class="diagram diagram--wide" data-mode="request" viewBox="0 0 1160 610" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="arrow-gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="#3a3a3c" />
+            </marker>
+            <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="#bf5af2" />
+            </marker>
+            <marker id="arrow-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="#ff9f0a" />
+            </marker>
+            <marker id="arrow-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="#34c7b5" />
+            </marker>
+          </defs>
+
+          <!-- Blue: client request paths, single-direction like the packet flow -->
+          <path id="path-r1" class="flow-path blue" d="M210,75 L470,75" marker-end="url(#arrow-blue)" />
+          <text class="flow-label blue" x="290" y="68">API 요청</text>
+
+          <path id="path-r2" class="flow-path blue" d="M640,75 L680,75" marker-end="url(#arrow-blue)" />
+          <text class="flow-label blue" x="600" y="30">사용자 · 그룹 조회</text>
+
+          <path id="path-r3" class="flow-path blue" d="M555,110 L555,230" marker-end="url(#arrow-blue)" />
+          <text class="flow-label blue" x="565" y="175">조회 · 제어</text>
+
+          <path id="path-r4" class="flow-path blue" d="M555,40 L555,14 L1140,14 L1140,270 L1100,270" marker-end="url(#arrow-blue)" />
+          <text class="flow-label blue" x="760" y="10">Flow API</text>
+
+          <path id="path-r5" class="flow-path blue" d="M555,40 L555,14 L1140,14 L1140,480 L1100,480" marker-end="url(#arrow-blue)" />
+          <text class="flow-label blue" x="1108" y="430">AI API</text>
+
+          <path id="path-r6" class="flow-path blue" d="M950,230 L950,150 L520,150 L520,230" marker-end="url(#arrow-blue)" />
+          <text class="flow-label blue" x="650" y="143">Engine → Core · 조회 · 제어</text>
+
+          <path id="path-r7" class="flow-path blue" d="M1000,310 L1000,438" marker-end="url(#arrow-blue)" />
+          <text class="flow-label blue" x="1005" y="378">Flow 생성 · 조회</text>
+
+          <path id="path-r8" class="flow-path blue" d="M900,480 L600,310" marker-end="url(#arrow-blue)" />
+          <text class="flow-label blue" x="680" y="420">AI → Core · 공간 조회 · 제어</text>
+
+          <!-- Orange: packet / telemetry flow, stepped -->
+          <path id="path-p1" class="flow-path orange" d="M210,270 L248,270" marker-end="url(#arrow-orange)" />
+          <text class="flow-label orange" x="210" y="290">센서 전송</text>
+
+          <path id="path-p2" class="flow-path orange" d="M420,270 L458,270" marker-end="url(#arrow-orange)" />
+          <text class="flow-label orange" x="418" y="290">MQTT 수신</text>
+
+          <path id="path-p3" class="flow-path orange" d="M650,270 L688,270" marker-end="url(#arrow-orange)" />
+          <text class="flow-label orange" x="640" y="290">Telemetry 발행</text>
+
+          <path id="path-p4" class="flow-path orange" d="M860,255 L898,255" marker-end="url(#arrow-orange)" />
+          <text class="flow-label orange" x="845" y="245">규칙 실행</text>
+
+          <path id="path-p5" class="flow-path orange" d="M898,295 L860,295" marker-end="url(#arrow-orange)" />
+          <text class="flow-label orange" x="845" y="315">ALERT 발행</text>
+
+          <path id="path-p6" class="flow-path orange" d="M775,310 L900,468" marker-end="url(#arrow-orange)" />
+          <text class="flow-label orange" x="805" y="400">ALERT 수신</text>
+
+          <!-- Nodes -->
+          <g id="box-front" class="flow-node" data-id="box-front">
+            <rect x="40" y="40" width="170" height="70" rx="12" />
+            <text class="fn-title" x="55" y="66">Front</text>
+            <text class="fn-sub" x="55" y="84">Web UI</text>
+          </g>
+
+          <g id="box-gateway" class="flow-node" data-id="box-gateway">
+            <rect x="470" y="40" width="170" height="70" rx="12" />
+            <text class="fn-title" x="485" y="66">Gateway</text>
+            <text class="fn-sub" x="485" y="84">API Gateway</text>
+          </g>
+
+          <g id="box-auth" class="flow-node" data-id="box-auth">
+            <rect x="680" y="40" width="190" height="70" rx="12" />
+            <text class="fn-title" x="695" y="66">Auth Service</text>
+            <text class="fn-sub" x="695" y="84">Deployment ×2</text>
+          </g>
+
+          <g id="box-sensor" class="flow-node" data-id="box-sensor">
+            <rect x="40" y="230" width="170" height="80" rx="12" />
+            <text class="fn-title" x="55" y="260">Sensor / Device</text>
+            <text class="fn-sub" x="55" y="278">Telemetry producer</text>
+          </g>
+
+          <g id="box-mqtt" class="flow-node" data-id="box-mqtt">
+            <rect x="250" y="230" width="170" height="80" rx="12" />
+            <text class="fn-title" x="265" y="260">MQTT Gateway</text>
+            <text class="fn-sub" x="265" y="278">External broker</text>
+          </g>
+
+          <g id="box-core" class="flow-node" data-id="box-core">
+            <rect x="460" y="230" width="190" height="80" rx="12" />
+            <text class="fn-title" x="475" y="260">Core Service</text>
+            <text class="fn-sub" x="475" y="278">StatefulSet ×2</text>
+          </g>
+
+          <g id="box-rabbitmq" class="flow-node" data-id="box-rabbitmq">
+            <rect x="690" y="230" width="170" height="80" rx="12" />
+            <text class="fn-title" x="705" y="260">RabbitMQ</text>
+            <text class="fn-sub" x="705" y="278">AMQP broker</text>
+          </g>
+
+          <g id="box-ruleengine" class="flow-node" data-id="box-ruleengine">
+            <rect x="900" y="230" width="200" height="80" rx="12" />
+            <text class="fn-title" x="915" y="260">RuleEngine Service</text>
+            <text class="fn-sub" x="915" y="278">StatefulSet ×2</text>
+          </g>
+
+          <g id="box-ai" class="flow-node" data-id="box-ai">
+            <rect x="900" y="440" width="200" height="80" rx="12" />
+            <text class="fn-title" x="915" y="470">AI Service</text>
+            <text class="fn-sub" x="915" y="488">Deployment ×2</text>
+          </g>
+        </svg>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </section>
+
+
+  <section class="section section-dark">
+    <div class="section-inner">
+      <h2 class="section-heading reveal" style="color: var(--color-text-dark);">트러블슈팅</h2>
+
+      <div class="issue-card reveal">
+        <h3>Bash 수동 배포 &amp; Eureka 이중 관리 → Kubernetes 네이티브 전환</h3>
+
+        <div class="issue-steps">
+          <div class="issue-step issue-step-problem">
+            <span class="issue-label">PROBLEM</span>
+            <h4>Bash·Docker·Eureka 조합의 수동 배포, 타이밍 경합과 운영자 개입에 의존</h4>
+            <p>Docker Compose와 Eureka 기반의 배포 환경에서는 서버가 1대였고, 배포 스크립트가 새 컨테이너를 만들고 Eureka 등록 여부를 확인한 뒤 기존 컨테이너를 종료하는 방식으로 무중단 배포를 구현했으며, 서비스 디스커버리도 Eureka 서버를 별도로 띄워 직접 관리했습니다.</p>
+            <p>하지만 Eureka 등록 이후에도 애플리케이션 초기화나 의존성 연결이 끝나기 전에 요청이 들어올 수 있었고, 기존 인스턴스 종료 시점과 Eureka 등록 해제 시점이 어긋나면 종료 중인 인스턴스로 요청이 전달되는 경우도 있었습니다.</p>
+            <p>게다가 서버 장애 시 컨테이너 재기동, 인스턴스 확장, 배포 실패 롤백까지 전부 운영자가 직접 처리해야만 했고, 스크립트가 컨테이너별 상태와 이름에 의존해 운영 복잡도가 컸습니다.</p>
+          </div>
+
+          <div class="issue-step issue-step-fix">
+            <span class="issue-label">SOLUTION</span>
+            <h4>Deployment/Service 역할 분리 + readiness probe 기반 트래픽 전환, 3-Node 클러스터로 전환</h4>
+            <p class="issue-lead">Kubernetes로 전환해 Deployment는 배포를, Service는 트래픽 연결을 전담하도록 역할을 분리했습니다.</p>
+            <p><code>/actuator/health/readiness</code> 엔드포인트를 readiness probe로 연결하고 <code>periodSeconds: 5</code>, <code>failureThreshold: 3</code>으로 설정해, 애플리케이션 초기화나 의존성 연결이 끝나지 않은 Pod는 Service의 트래픽 대상에서 자동으로 제외되도록 했습니다.</p>
+            <p>또한 Pod 종료 시 곧바로 컨테이너를 내리지 않고 <code>preStop</code>에 <code>sleep 5</code>를 두어 Service의 endpoint 목록에서 먼저 빠질 시간을 확보한 뒤 종료하도록 구성해, 종료 중인 인스턴스로 요청이 전달되는 문제를 없앴습니다.</p>
+            <p>아울러 Pod별 <code>resources.requests/limits</code>를 명시해 특정 인스턴스가 Node 자원을 과점하지 않도록 했습니다.</p>
+            <p>클러스터는 Bare-metal 3-Node로 구성해 관리는 Rancher로, 배포는 ArgoCD 기반 GitOps로 옮겨 git push만으로 자동화했고, 배포 이미지 히스토리를 통해 과거 시점의 이미지로도 손쉽게 롤백할 수 있게 했습니다.</p>
+          </div>
+
+          <div class="issue-step issue-step-result">
+            <span class="issue-label">RESULT</span>
+            <h4>컨테이너 순서·서비스 등록 상태에 대한 수동 의존 제거, Node 장애도 자동 복구</h4>
+            <p>배포 과정에서 Bash 스크립트가 직접 관리하던 컨테이너 기동 순서 및 서비스 등록 상태에 대한 수동 의존성을 제거했고, 장애 Pod의 자동 복구와 선언적인 인스턴스 수 관리, 안정적인 Rolling Deploy가 가능해졌습니다.</p>
+            <p>Node 3대 중 하나에 장애가 생겨도 Kubernetes의 선언-관찰-조정 루프가 반복되며 부족해진 Pod를 다른 정상 Node에 자동으로 재스케줄링해 스스로 복구하고, Eureka 서버 운영 부담과 SSH 기반 수동 개입 없이도 안정적으로 클러스터 상태를 파악하고 대응할 수 있는 구조로 개선되었습니다.</p>
+          </div>
+        </div>
+
+        <div class="issue-proof">
+          <figure class="proof-thumb">
+            <img src="img/insight-on/argocd-applications.png" alt="ArgoCD Applications 목록 — insighton 네임스페이스의 애플리케이션 15개가 전부 Healthy·Synced 상태" loading="lazy" />
+            <figcaption>ArgoCD로 관리되는 insighton 전체 애플리케이션 — 15개 전부 Healthy · Synced</figcaption>
+          </figure>
+          <figure class="proof-thumb">
+            <img src="img/insight-on/argocd-auth-tree.png" alt="ArgoCD insighton-auth Application Tree — Deployment가 ReplicaSet과 Pod 2개, Service를 선언적으로 관리" loading="lazy" />
+            <figcaption>insighton-auth Deployment — Service·ReplicaSet·Pod를 선언적으로 관리하고 롤링 배포 이력까지 추적</figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <div class="issue-card reveal">
+        <h3>인스턴스별 설정 분리 (StatefulSet)</h3>
+
+        <div class="issue-steps">
+        <div class="issue-step issue-step-problem">
+          <span class="issue-label">PROBLEM</span>
+          <h4>Deployment로는 인스턴스별 역할 구분 불가</h4>
+          <p>RuleEngine·Core를 각각 2개 인스턴스로 확장하려는데, Deployment는 모든 Pod가 동일한 설정을 공유하는 구조라 인스턴스마다 다른 역할을 줄 방법이 없었습니다.</p>
+          <p>RuleEngine은 두 인스턴스가 RabbitMQ의 같은 텔레메트리 큐를 동시에 구독하면 같은 메시지를 중복으로 처리해 룰 평가·알림이 두 번 발생하는 문제가 있었고, Core도 같은 MQTT 게이트웨이 장치에 두 인스턴스가 동시에 연결을 시도하면 clientId 충돌이나 중복 연결이 발생할 수 있었습니다.</p>
+          <p>결국 두 서비스 모두 "이 작업은 누가 맡을지"를 인스턴스마다 결정론적으로 나눠줄 방법이 필요했습니다.</p>
+        </div>
+
+        <div class="issue-step issue-step-fix">
+          <span class="issue-label">SOLUTION</span>
+          <h4>StatefulSet Pod 순번 기반 역할 분담과 자동 Failover</h4>
+          <p class="issue-lead">Kubernetes StatefulSet이 각 Pod에 붙여주는 고유 순번(-0/-1)을 인스턴스 식별자로 활용해, RuleEngine과 Core 모두 이 값을 기반으로 역할을 결정론적으로 나눌 수 있게 했습니다.</p>
+          <p>RuleEngine은 이 순번으로 짝/홀수 텔레메트리 큐를 나눠 맡고, 상대 인스턴스에 장애가 생기면 자동으로 큐를 인계받아 처리합니다.</p>
+          <p>Core도 같은 순번을 게이트웨이 커넥션 소유권 결정에 활용해, 장애 시 다른 인스턴스가 대신 연결을 넘겨받도록 구현되어 있습니다.</p>
+          <p>StatefulSet은 headless Service(<code>clusterIP: None</code>)로 구성해 각 Pod가 <code>engine-0.engine-headless</code>처럼 안정적인 DNS 식별자를 갖도록 했고, 이 안정적인 식별자가 두 서비스 모두 순번 기반 로직을 쓸 수 있는 전제 조건이었습니다.</p>
+        </div>
+
+        <div class="issue-step issue-step-result">
+          <span class="issue-label">RESULT</span>
+          <h4>확장 시 수동 설정 개입 제거</h4>
+          <p>StatefulSet은 Pod가 재시작되거나 재배포돼도 항상 같은 순번을 다시 받기 때문에, 인스턴스를 늘리거나 교체해도 수동 설정 없이 각자 순번에 따라 자기 몫을 자동으로 할당받습니다. 확장이나 배포 때마다 인프라 담당자가 인스턴스별 설정을 손으로 맞춰줄 필요가 없어졌습니다.</p>
+          <p>한 인스턴스에 장애가 생겨도 다른 인스턴스가 자동으로 그 몫을 인계받고, 복구되면 다시 돌려주는 방식으로 운영자 개입 없이 안정적으로 동작합니다.</p>
+          <p>StatefulSet과 headless Service 조합은 이후 인스턴스별로 다른 역할이 필요한 다른 서비스에도 그대로 재사용할 수 있는 인프라 패턴이 되어, 매번 새로 설계하지 않아도 되는 기반을 마련했습니다.</p>
+          <p>다만 RuleEngine은 짝/홀수 2분할 구조라 지금은 replica 수를 2로 고정해서 운영 중이고, 3개 이상으로 늘리려면 애플리케이션 쪽 큐 분배 로직을 N개 기준으로 다시 설계해야 합니다. Core는 나눗셈 기반이라 구조적으로는 확장 여지가 있지만, 3개 이상으로 실제 검증해본 적은 아직 없습니다.</p>
+        </div>
+        </div>
+
+        <div class="issue-proof">
+          <figure class="proof-thumb">
+            <img src="img/insight-on/argocd-core-tree.png" alt="ArgoCD insighton-core Application Tree — StatefulSet이 Pod 2개(순번 0/1)와 headless Service를 선언적으로 관리" loading="lazy" />
+            <figcaption>insighton-core StatefulSet — Pod 순번(0/1)과 headless Service를 선언적으로 관리</figcaption>
+          </figure>
+          <figure class="proof-thumb">
+            <img src="img/insight-on/argocd-ruleengine-tree.png" alt="ArgoCD insighton-ruleengine Application Tree — StatefulSet이 Pod 2개(순번 0/1)와 headless Service를 선언적으로 관리" loading="lazy" />
+            <figcaption>insighton-ruleengine StatefulSet — 같은 순번 기반 패턴으로 Pod 2개를 관리</figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <div class="issue-card reveal">
+        <h3>단일 서버 ELK에서 Kubernetes 네이티브 로그 수집으로 전환</h3>
+
+        <div class="issue-steps">
+        <div class="issue-step issue-step-problem">
+          <span class="issue-label">PROBLEM</span>
+          <h4>ELK → Promtail EOL → Pod 목록 오염까지, 세 번 바뀐 로그 수집 방식</h4>
+          <p>Docker·Eureka 기반 단일 서버 환경일 땐 Filebeat로 로그를 수집해 Elasticsearch에 적재하고 Kibana로 조회하는 ELK 스택을 사용했습니다.</p>
+          <p>Kubernetes로 마이그레이션한 뒤엔 Promtail+Loki 조합으로 바꿨는데, Grafana Labs가 Promtail 지원 종료(EOL)를 예고한 걸 알게 되면서 로그 수집기를 다시 교체해야 했습니다.</p>
+          <p>여기에 더해 Pod가 재배포될 때마다 Grafana의 Pod 선택 목록에 예전 Pod까지 계속 누적돼 남아 있어, 지금 실제로 떠 있는 Pod가 어떤 건지 헷갈리는 문제도 있었습니다.</p>
+        </div>
+
+        <div class="issue-step issue-step-fix">
+          <span class="issue-label">SOLUTION</span>
+          <h4>Grafana Alloy DaemonSet + Kubernetes API 기반 Pod 목록 조회</h4>
+          <p class="issue-lead">Promtail 대신 Grafana의 공식 후속 에이전트인 Alloy로 로그 수집기를 교체하고, Pod 목록 조회 방식도 Loki가 아닌 Kubernetes API를 직접 쓰도록 바꿨습니다.</p>
+          <p>Node마다 Alloy를 DaemonSet으로 배포해 각자 자기 Node에서 도는 Pod의 로그만 필터링해 읽고, <code>app</code>·<code>namespace</code>·<code>pod</code>·<code>node</code> 라벨을 붙여 중앙 Loki로 전송하도록 구성했습니다.</p>
+          <p>Grafana의 Pod 선택 변수는 전용 <code>grafana-k8s-viewer</code> ServiceAccount로 Kubernetes API(<code>/api/v1/namespaces/insighton/pods</code>)를 <code>fieldSelector=status.phase=Running</code>으로 직접 조회하도록 바꿔, 지금 실제로 Running 상태인 Pod만 목록에 나오게 했습니다.</p>
+        </div>
+
+        <div class="issue-step issue-step-result">
+          <span class="issue-label">RESULT</span>
+          <h4>유지보수 가능한 로그 파이프라인과 항상 정확한 Pod 목록</h4>
+          <p>Promtail EOL 이슈 없이 Grafana 공식 지원 에이전트로 넘어가서 로그 수집 파이프라인을 계속 유지보수 가능한 상태로 만들었습니다.</p>
+          <p>Pod가 재배포·재시작돼도 Grafana Pod 목록엔 항상 지금 실제로 떠 있는 Pod만 나오게 되어, 로그 조회 시 예전 Pod와 헷갈리는 일이 없어졌습니다.</p>
+        </div>
+        </div>
+
+        <div class="issue-proof">
+          <figure class="proof-thumb">
+            <img src="img/insight-on/grafana-live-logs.png" alt="Grafana Insighton - Live Logs 대시보드 — App별 로그 발생량, 현재 Active Pod 목록, 실시간 로그 스트림" loading="lazy" />
+            <figcaption>Insighton - Live Logs — Alloy가 Loki로 전송한 로그를 App·Pod 단위로 실시간 확인</figcaption>
+          </figure>
+          <figure class="proof-thumb">
+            <img src="img/insight-on/grafana-logs-by-pod.png" alt="Grafana Insighton - Logs by Pod 대시보드 — Pod 드롭다운에 현재 Running 상태인 Pod만 표시" loading="lazy" />
+            <figcaption>Insighton - Logs by Pod — Kubernetes API로 직접 조회해 지금 떠 있는 Pod만 목록에 표시</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-inner">
+      <h2 class="section-heading reveal">협업 및 역할</h2>
+      <div class="role-grid reveal">
+        <div class="role-col">
+          <span class="trouble-label">TEAM</span>
+          <h4>총 8명 (백엔드 6, Infra 1, Front 1)</h4>
+          <p>Infra 전 영역(K8s 클러스터, CI/CD, GitOps, Observability) 담당</p>
+        </div>
+        <div class="role-col">
+          <span class="trouble-label">PROCESS</span>
+          <h4>Git Flow + PR 컨벤션</h4>
+          <p>GitHub Project(Kanban)로 일정 관리, Notion으로 문서화, 데일리 스크럼과 주간 회의로 진행 상황 공유</p>
+        </div>
+        <div class="role-col">
+          <span class="trouble-label">COMMUNICATION</span>
+          <h4>인프라 배경지식 공유를 위한 사내 기술 세미나 진행</h4>
+          <p>Infra 담당자로서 직접 설계한 아키텍처를 바탕으로, Eureka·Docker의 개념부터 Kubernetes를 도입한 이유, 이중화, 무중단 배포 원리까지 팀 전체를 대상으로 기술 세미나를 진행했습니다. 인프라 배경 지식이 없는 팀원들도 각자 개발한 서비스가 어떤 인프라 위에서 동작하는지 이해하게 되면서, 이후 배포·장애 대응 논의가 더 매끄러워졌습니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="detail-footer-nav">
+    <a href="../index.html#projects">&larr; 다른 프로젝트 보기</a>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 조창희</p>
+  </footer>
+
+  <div class="lightbox" id="lightbox" hidden>
+    <img class="lightbox-img" id="lightboxImg" src="" alt="" />
+  </div>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,1216 @@
+:root {
+  --color-bg: #ffffff;
+  --color-bg-dark: #000000;
+  --color-text: #1d1d1f;
+  --color-text-dark: #f5f5f7;
+  --color-muted: #6e6e73;
+  --color-accent: #0071e3;
+  --color-flow-orange: #ff9f0a;
+  --color-flow-teal: #34c7b5;
+  --color-flow-purple: #bf5af2;
+  --max-width: 1100px;
+  --nav-height: 56px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "Segoe UI", sans-serif;
+  color: var(--color-text);
+  background: var(--color-bg);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  word-break: keep-all;
+}
+
+h1, h2, h3 {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+/* Nav */
+#nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--nav-height);
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.nav-inner {
+  max-width: var(--max-width);
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  font-weight: 600;
+  color: var(--color-text);
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+nav a {
+  margin-left: 1.75rem;
+  color: var(--color-text);
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+
+nav a:hover {
+  color: var(--color-muted);
+}
+
+/* Hero */
+.hero {
+  position: relative;
+  height: 100vh;
+  min-height: 560px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #000;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(0, 113, 227, 0.35), transparent 55%),
+    radial-gradient(circle at 80% 20%, rgba(126, 58, 242, 0.3), transparent 50%),
+    radial-gradient(circle at 50% 80%, rgba(0, 200, 255, 0.2), transparent 55%),
+    #000;
+  background-size: 160% 160%;
+  animation: heroDrift 20s ease-in-out infinite alternate;
+}
+
+@keyframes heroDrift {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-bg {
+    animation: none;
+  }
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.45) 100%);
+}
+
+.hero-content {
+  position: relative;
+  text-align: center;
+  color: #fff;
+  padding: 0 1.5rem;
+}
+
+.hero-content h1 {
+  font-size: clamp(2.25rem, 6vw, 4.5rem);
+  line-height: 1.1;
+}
+
+.hero-sub {
+  margin-top: 1rem;
+  font-size: clamp(1rem, 2vw, 1.4rem);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.btn {
+  display: inline-block;
+  margin-top: 2rem;
+  padding: 0.75rem 1.75rem;
+  border-radius: 999px;
+  background: var(--color-accent);
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.btn:hover {
+  background: #0077ed;
+  transform: translateY(-1px);
+}
+
+/* Sections */
+.section {
+  padding: 7rem 0;
+}
+
+.section-dark {
+  background: #000;
+  color: var(--color-text-dark);
+}
+
+.section-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  text-align: center;
+}
+
+.section h2 {
+  font-size: clamp(1.75rem, 4vw, 3rem);
+  margin-bottom: 1.5rem;
+}
+
+.lead {
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  color: var(--color-muted);
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.section-dark .lead {
+  color: rgba(245, 245, 247, 0.75);
+}
+
+.contact-links {
+  margin-top: 1.75rem;
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.contact-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-accent);
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+.contact-links svg {
+  width: 20px;
+  height: 20px;
+}
+
+.contact-links a:hover {
+  text-decoration: underline;
+}
+
+/* Projects */
+.project-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+  text-align: left;
+}
+
+.project-card {
+  background: #111;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  /* The site's base accent blue reads well on white, but is too muted
+     against this near-black card — brighten it just here so the meta
+     label and links stand out the way they do everywhere else. */
+  --color-accent: #3aa0ff;
+}
+
+.project-body {
+  padding: 2rem;
+}
+
+.project-meta {
+  display: block;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  color: var(--color-accent);
+  margin-bottom: 0.75rem;
+}
+
+.project-body h3 {
+  font-size: 1.3rem;
+  margin-bottom: 0.9rem;
+}
+
+.project-title-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.project-title-link:hover {
+  color: var(--color-accent);
+}
+
+.project-body p {
+  color: rgba(245, 245, 247, 0.7);
+  font-size: 0.95rem;
+  margin: 0 0 1.25rem;
+}
+
+.project-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.project-stack span {
+  font-size: 0.75rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(245, 245, 247, 0.85);
+}
+
+.project-link {
+  color: var(--color-accent);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.project-link:hover {
+  text-decoration: underline;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 2.5rem 1rem;
+  color: var(--color-muted);
+  font-size: 0.85rem;
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  nav a {
+    margin-left: 1rem;
+    font-size: 0.8rem;
+  }
+
+  .section {
+    padding: 4.5rem 0;
+  }
+}
+
+/* Project detail pages */
+.project-link-wrap {
+  display: flex;
+  gap: 1.25rem;
+  align-items: center;
+}
+
+.detail-hero {
+  padding: calc(var(--nav-height) + 4rem) 0 3.5rem;
+  background: #000;
+  color: var(--color-text-dark);
+}
+
+.detail-hero .section-inner {
+  text-align: left;
+}
+
+.back-link {
+  display: inline-block;
+  color: rgba(245, 245, 247, 0.6);
+  text-decoration: none;
+  font-size: 0.85rem;
+  margin-bottom: 1.5rem;
+}
+
+.back-link:hover {
+  color: #fff;
+}
+
+.detail-meta {
+  display: block;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  color: var(--color-accent);
+  margin-bottom: 0.75rem;
+}
+
+.detail-hero h1 {
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  margin-bottom: 1.25rem;
+}
+
+.detail-hero .lead {
+  margin: 0 0 1.75rem;
+  max-width: 720px;
+  color: rgba(245, 245, 247, 0.8);
+}
+
+.detail-hero .project-stack {
+  margin-bottom: 0;
+}
+
+.section-heading {
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  margin-bottom: 2.5rem;
+  text-align: left;
+}
+
+.feature-list {
+  display: grid;
+  gap: 1.5rem;
+  text-align: left;
+}
+
+.feature-item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1.25rem;
+  align-items: start;
+  padding: 1.5rem 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.feature-item:first-child {
+  border-top: none;
+}
+
+.feature-num {
+  font-size: 0.85rem;
+  color: var(--color-accent);
+  font-weight: 600;
+  padding-top: 0.15rem;
+}
+
+.feature-item h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.4rem;
+}
+
+.feature-item p {
+  color: var(--color-muted);
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+/* Small hand-drawn flow diagram under a feature item, showing where the
+   item's own work picks up in the pipeline. Same blue/gray convention as
+   the architecture diagrams: blue = this person's part, gray = a teammate's
+   or an external system's. */
+.mini-flow {
+  margin-top: 1rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.mini-flow svg {
+  display: block;
+  width: 100%;
+  min-width: 480px;
+  height: auto;
+}
+
+/* A tall, single-column flow (steps stacked top-to-bottom) reads better
+   shrunk to fit than horizontally scrolled — override the wide-diagram
+   defaults above. */
+.mini-flow-vertical {
+  width: 100%;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.mini-flow-vertical svg {
+  min-width: 0;
+}
+
+/* "동작 방식" (ai-library.html): 챗봇 대화 흐름 / RAG 추천 파이프라인 each get
+   their own card so they read as two distinct, self-contained blocks
+   inside the darker 아키텍처 section — same card language as .issue-card
+   elsewhere on the site. */
+.flow-card {
+  background: #111;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  padding: 2rem 2rem 2.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.flow-card:last-child {
+  margin-bottom: 0;
+}
+
+/* Two independent .flow-sticky-wrap blocks, each pairing its own pinned
+   diagram with its own feature items — main.js toggles .stage-active to
+   match whichever item is currently in view, scoped per wrap so the two
+   groups never cross-highlight each other. The diagram itself never
+   hides parts of itself (that read as a rendering bug rather than a
+   design once tried); instead it's the feature-item text/screenshots on
+   the right that fade in and back out one at a time. Single column on
+   narrow viewports, since a sticky column only makes sense once there's
+   room beside the text. */
+.flow-sticky-wrap {
+  display: block;
+}
+
+.flow-diagram-col {
+  margin-bottom: 2.5rem;
+}
+
+@media (min-width: 860px) {
+  .flow-sticky-wrap {
+    display: grid;
+    grid-template-columns: minmax(280px, 480px) 1fr;
+    gap: 2.5rem;
+    /* stretch (the default) instead of start: the diagram column's height
+       then always matches the items column's real height, so centering it
+       (below) lands the diagram in the middle of however tall 01~0N
+       actually is — not the middle of a fixed 100vh viewport, which looked
+       off whenever the item list was shorter than one screen. */
+    align-items: stretch;
+  }
+
+  /* `top: 50vh; transform: translateY(-50%)` (tried first) shifts the
+     element visually the instant it's rendered, not only once it's
+     actually stuck — so before the section had scrolled anywhere near
+     center, the diagram was already rendered ~350px higher than its real
+     document position, overlapping content above it. A sticky element
+     with a plain `top: 0` can't do that: it can only ever sit somewhere
+     between its container's top and bottom, so centering has to happen
+     *inside* it (via flexbox) rather than by moving the sticky box
+     itself. No min-height here — align-items: stretch above already
+     sizes this column to match the items column. */
+  .flow-diagram-col {
+    position: sticky;
+    top: 0;
+    display: flex;
+    align-items: center;
+    margin-bottom: 0;
+  }
+}
+
+/* Named .step-node/.step-arrow (not .flow-node/.flow-path) to avoid
+   colliding with insight-on.html's own packet-flow diagram classes of
+   similar names, which this stylesheet also defines further below. Always
+   visible. Every box starts neutral gray regardless of its own fill/stroke
+   attributes (overriding those inline values) — only the node(s) matching
+   the currently-read item turn orange, so color itself carries the "you
+   are here" signal instead of a glow on top of colors that already meant
+   something else (own work vs. teammate's). */
+.step-node,
+.step-arrow {
+  transition: fill 0.35s ease, stroke 0.35s ease, stroke-width 0.35s ease;
+}
+
+.step-node rect {
+  fill: #1c1c1e !important;
+  stroke: #3a3a3c !important;
+}
+
+.step-node.stage-active rect {
+  fill: rgba(255, 159, 10, 0.18) !important;
+  stroke: #ff9f0a !important;
+  stroke-width: 2.5;
+}
+
+.step-arrow.stage-active {
+  stroke: #ff9f0a;
+  stroke-width: 2.4;
+}
+
+/* .step-arrow labels (e.g. "히트"/"미스") are <text>, not <line> — text is
+   drawn via fill, not stroke, so the rule above put a 2.4px orange outline
+   around 13px glyphs instead of just coloring them, which read as a
+   blurry smear rather than legible orange text. */
+text.step-arrow.stage-active {
+  fill: #ff9f0a;
+  stroke: none;
+}
+
+/* The text/screenshot side: dimmed by default, full brightness only for
+   whichever item matches its diagram's current highlight — spotlighting
+   one step at a time instead of a flat scrolling list. Dimmed rather than
+   fully hidden, since these sit in normal document flow (unlike the fixed
+   SVG canvas above): hiding one outright would leave a blank gap the
+   height of its own card while scrolling past it. Kept fairly bright
+   (0.45, not near-invisible) — dimming further made the inactive items
+   hard to read while scrolling past them, since low-opacity text against
+   the dark background loses contrast fast. */
+.flow-items-col .feature-item {
+  opacity: 0.45;
+  transition: opacity 0.25s ease;
+}
+
+.flow-items-col .feature-item.stage-active {
+  opacity: 1;
+}
+
+/* .proof-thumb/.lightbox (below) were designed for the dark troubleshooting
+   cards on insight-on.html — override just the colors here so the same
+   click-to-zoom thumbnail reads correctly on .role-col (협업 및 역할), a
+   light-background section. Feature-items with a .proof-thumb only ever
+   appear in a .section-dark context (핵심 기능, folded into 아키텍처), so
+   they use the unmodified (dark-themed) .proof-thumb defaults. */
+.role-col .proof-thumb {
+  max-width: 340px;
+  margin-top: 1rem;
+}
+
+.role-col .proof-thumb img {
+  border-color: #d2d2d7;
+}
+
+.role-col .proof-thumb:hover img {
+  border-color: #0071e3;
+}
+
+.role-col .proof-thumb figcaption {
+  color: #6e6e73;
+}
+
+.feature-item .proof-thumb {
+  max-width: 340px;
+  margin-top: 1rem;
+}
+
+/* Wraps multiple .proof-thumb figures side by side instead of stacking —
+   used where a feature-item has more than one proof screenshot (e.g. an
+   input stage and an output stage of the same pipeline). */
+.proof-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.proof-row .proof-thumb {
+  flex: 1 1 260px;
+  margin-top: 0;
+}
+
+/* A .feature-list reused inside a dark section (핵심 기능, folded into the
+   아키텍처 section below) needs the light-section defaults above overridden
+   back to this site's usual dark-on-black palette. */
+.section-dark .feature-item {
+  border-top-color: rgba(255, 255, 255, 0.08);
+}
+
+.section-dark .feature-item .feature-num {
+  color: #ff9f0a;
+}
+
+.section-dark .feature-item p {
+  color: rgba(245, 245, 247, 0.7);
+}
+
+.diagram-wrap {
+  margin: 0 auto 4rem;
+  padding: 0 1.5rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.diagram {
+  display: block;
+  width: 100%;
+  min-width: 640px;
+  height: auto;
+}
+
+/* No min-width here: inside .arch-scene, JS (applyZoomWidth) sizes this
+   every frame to fit one viewport's height exactly, and a CSS floor would
+   silently override that and reintroduce internal scrolling on short
+   viewports. The plain (non-scrolly) .diagram-wrap in ai-library.html keeps
+   its own natural sizing untouched. */
+.arch-scene .diagram {
+  min-width: 0;
+}
+
+/* Inside the scroll-jacked architecture scenes, JS drives the diagram's exact
+   render width every frame to keep it within one viewport's height (no
+   internal scrolling) — the default 4rem bottom margin only makes sense for
+   normal in-page flow and otherwise eats into that height budget. */
+.arch-scene .diagram-wrap {
+  margin-bottom: 1rem;
+}
+
+/* Vertical timeline write-up for troubleshooting issues (insight-on.html) —
+   same card/typography language as the rest of the site (.project-card,
+   .lead), just laid out as one flowing problem->fix->result story per issue
+   instead of three equal-width columns. */
+.issue-card {
+  text-align: left;
+  background: #111;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  padding: 2.25rem 2.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.issue-card:last-child {
+  margin-bottom: 0;
+}
+
+.issue-card h3 {
+  font-size: 1.35rem;
+  margin: 0 0 2rem;
+  color: var(--color-text-dark);
+}
+
+.issue-step {
+  position: relative;
+  padding-left: 2.1rem;
+  padding-bottom: 2.25rem;
+}
+
+.issue-step:last-child {
+  padding-bottom: 0;
+}
+
+.issue-step::before {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 19px;
+  bottom: 0;
+  width: 2px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.issue-step:last-child::before {
+  display: none;
+}
+
+.issue-step::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 5px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--step-color, var(--color-accent));
+}
+
+.issue-step-problem {
+  --step-color: #ff453a;
+}
+
+.issue-step-fix {
+  --step-color: #0071e3;
+}
+
+.issue-step-result {
+  --step-color: #32d74b;
+}
+
+.issue-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  color: var(--step-color, var(--color-accent));
+  margin-bottom: 0.6rem;
+}
+
+.issue-step h4 {
+  font-size: 1.15rem;
+  margin: 0 0 0.6rem;
+  color: var(--color-text-dark);
+}
+
+.issue-step p {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: rgba(245, 245, 247, 0.75);
+}
+
+.issue-step p + p {
+  margin-top: 0.9rem;
+}
+
+.issue-step p.issue-lead {
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--color-text-dark);
+}
+
+.issue-step code {
+  font-family: "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  font-size: 0.88em;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 0.1em 0.4em;
+  border-radius: 4px;
+  color: #f5f5f7;
+  overflow-wrap: break-word;
+}
+
+/* Proof screenshots: a simple static grid — click any image to open it
+   full-size in the lightbox below. */
+.issue-proof {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2.25rem;
+  padding-top: 2.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.proof-thumb {
+  margin: 0;
+  cursor: zoom-in;
+}
+
+.proof-thumb img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: border-color 0.2s ease;
+}
+
+/* .issue-step proof shots (트러블슈팅) are log/terminal captures — very wide,
+   short strips (6-8:1), nothing like the 3:2 UI screenshots the default
+   above is tuned for. Forcing them into 3:2 with object-fit: cover cropped
+   out most of each log line. Letting height track the image's own ratio
+   instead shows the whole thing, uncropped. */
+.issue-step .proof-thumb {
+  max-width: 640px;
+  margin-top: 1.5rem;
+}
+
+.issue-step .proof-thumb img {
+  aspect-ratio: auto;
+  object-fit: contain;
+}
+
+.proof-thumb:hover img {
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.proof-thumb figcaption {
+  margin-top: 0.65rem;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: rgba(245, 245, 247, 0.5);
+}
+
+/* Shared lightbox overlay, reused by any .proof-thumb on the page. */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4vh 4vw;
+  background: rgba(0, 0, 0, 0.88);
+  cursor: zoom-out;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.lightbox[hidden] {
+  display: none;
+}
+
+.lightbox.open {
+  opacity: 1;
+}
+
+/* Transform is computed and applied per click by main.js (a FLIP animation
+   from the clicked thumbnail's exact screen position/size), not a fixed
+   CSS state — this only supplies the transition so that JS-driven change
+   actually animates instead of snapping. */
+.lightbox-img {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 8px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  cursor: default;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.role-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.75rem;
+  text-align: left;
+}
+
+.role-col {
+  padding: 1.5rem;
+  border: 1px solid #eee;
+  border-radius: 12px;
+}
+
+.role-col .trouble-label {
+  display: block;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  color: var(--color-muted);
+  margin-bottom: 0.6rem;
+}
+
+.role-col h4 {
+  font-size: 1rem;
+  margin: 0 0 0.6rem;
+}
+
+.role-col p {
+  font-size: 0.9rem;
+  color: var(--color-muted);
+  margin: 0;
+}
+
+.detail-footer-nav {
+  text-align: center;
+  padding: 4rem 0;
+}
+
+.detail-footer-nav a {
+  color: var(--color-accent);
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+/* Scroll-driven zoom sections (architecture diagrams) */
+.zoom-scrolly {
+  position: relative;
+}
+
+.zoom-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: visible;
+}
+
+/* Reassures a first-time visitor that the pinned section isn't the end of
+   the page — visible only for the first sliver of scroll progress through
+   it, then fades out via main.js and stays gone (JS also removes it from
+   layout so it can't block clicks once hidden). */
+.scroll-hint {
+  position: absolute;
+  left: 50%;
+  bottom: 2.5rem;
+  transform: translateX(-50%);
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.7);
+  pointer-events: none;
+  opacity: 0;
+}
+
+.scroll-hint svg {
+  width: 18px;
+  height: 18px;
+  animation: scroll-hint-bounce 1.6s ease-in-out infinite;
+}
+
+@keyframes scroll-hint-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(6px);
+  }
+}
+
+/* Three architecture "scenes" stacked in the same spot; only one
+   is visible at a time, cross-fading as scroll progress moves between them. */
+.arch-scene {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+  transform-origin: center center;
+  will-change: transform, opacity;
+}
+
+.arch-scene.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.arch-scene-inner {
+  width: 100%;
+  max-height: 100vh;
+  overflow-y: auto;
+  padding: calc(var(--nav-height) + 1.5rem) 0 1.5rem;
+}
+
+/* Interactive flow walkthrough */
+.flow-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.flow-tab {
+  font-family: inherit;
+  font-size: 0.85rem;
+  padding: 0.55rem 1.1rem;
+  border-radius: 999px;
+  border: 1px solid #3a3a3c;
+  background: transparent;
+  color: rgba(245, 245, 247, 0.7);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.flow-tab:hover {
+  border-color: rgba(245, 245, 247, 0.5);
+  color: #f5f5f7;
+}
+
+.flow-tab.active {
+  background: #f5f5f7;
+  border-color: #f5f5f7;
+  color: #000;
+  font-weight: 600;
+}
+
+.flow-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+  min-height: 44px;
+}
+
+.flow-nav-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid #3a3a3c;
+  background: transparent;
+  color: #f5f5f7;
+  font-size: 1rem;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.flow-nav-btn:hover {
+  border-color: var(--color-flow-orange);
+  background: rgba(255, 159, 10, 0.1);
+}
+
+.flow-nav-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.flow-nav-btn:disabled:hover {
+  border-color: #3a3a3c;
+  background: transparent;
+}
+
+.flow-step-text {
+  flex: 1;
+  min-width: 200px;
+}
+
+.flow-step-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-flow-orange);
+  letter-spacing: 0.04em;
+  margin-right: 0.6rem;
+}
+
+.flow-step-desc {
+  font-size: 0.95rem;
+  color: rgba(245, 245, 247, 0.9);
+}
+
+.flow-dots {
+  display: flex;
+  gap: 0.4rem;
+  flex-shrink: 0;
+}
+
+.flow-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border: none;
+  background: #3a3a3c;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.flow-dot:hover {
+  background: rgba(255, 159, 10, 0.6);
+}
+
+.flow-dot.active {
+  background: var(--color-flow-orange);
+  transform: scale(1.25);
+}
+
+/* SVG flow diagram states */
+.flow-node rect {
+  fill: #1c1c1e;
+  stroke: #3a3a3c;
+  stroke-width: 1.5;
+  transition: stroke 0.25s ease, fill 0.25s ease, stroke-width 0.25s ease;
+}
+
+.flow-node text {
+  transition: fill 0.25s ease;
+}
+
+.flow-node .fn-title {
+  fill: #f5f5f7;
+  font-size: 12.5px;
+  font-weight: 600;
+}
+
+.flow-node .fn-sub {
+  fill: rgba(245, 245, 247, 0.55);
+  font-size: 9.5px;
+}
+
+.flow-node.lit rect {
+  stroke: var(--color-flow-orange);
+  stroke-width: 2;
+  fill: rgba(255, 159, 10, 0.12);
+}
+
+.flow-node.current rect {
+  stroke-width: 3;
+}
+
+.flow-node.blue-lit rect {
+  stroke: var(--color-flow-purple);
+  stroke-width: 2;
+  fill: rgba(191, 90, 242, 0.14);
+}
+
+.flow-path {
+  stroke: #6c6c70;
+  stroke-width: 1.8;
+  fill: none;
+  opacity: 0.55;
+  transition: stroke 0.25s ease, stroke-width 0.25s ease, opacity 0.25s ease;
+}
+
+.flow-path.orange.lit {
+  stroke: var(--color-flow-orange);
+  opacity: 0.7;
+  stroke-width: 2;
+}
+
+.flow-path.orange.current {
+  stroke: var(--color-flow-orange);
+  stroke-width: 3.2;
+  opacity: 1;
+  filter: drop-shadow(0 0 3px rgba(255, 159, 10, 0.6));
+}
+
+.flow-path.blue.lit {
+  stroke: var(--color-flow-purple);
+  opacity: 0.7;
+  stroke-width: 2;
+}
+
+.flow-path.blue.current {
+  stroke: var(--color-flow-purple);
+  stroke-width: 3.2;
+  opacity: 1;
+  filter: drop-shadow(0 0 3px rgba(191, 90, 242, 0.6));
+}
+
+.flow-path.teal {
+  stroke: var(--color-flow-teal);
+  stroke-dasharray: 5 4;
+  stroke-width: 2;
+  opacity: 0.95;
+}
+
+.flow-label {
+  font-size: 9.5px;
+  fill: rgba(245, 245, 247, 0.65);
+  transition: fill 0.25s ease, opacity 0.25s ease;
+}
+
+.flow-label.blue,
+.flow-label.orange {
+  opacity: 0;
+}
+
+svg[data-mode="packet"] .flow-path.blue {
+  opacity: 0.08;
+}
+
+svg[data-mode="packet"] .flow-label.blue {
+  opacity: 0;
+}
+
+svg[data-mode="packet"] .flow-label.orange {
+  opacity: 1;
+}
+
+svg[data-mode="request"] .flow-path.orange {
+  opacity: 0.08;
+}
+
+svg[data-mode="request"] .flow-label.orange {
+  opacity: 0;
+}
+
+svg[data-mode="request"] .flow-label.blue {
+  opacity: 1;
+}
+
+svg[data-mode="request"] .flow-node.blue-lit rect {
+  stroke: var(--color-flow-purple);
+}

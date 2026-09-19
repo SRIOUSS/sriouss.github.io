@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>조창희 포트폴리오</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header id="nav">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo">조창희</a>
+      <nav>
+        <a href="#about">소개</a>
+        <a href="#projects">프로젝트</a>
+        <a href="#contact">연락처</a>
+      </nav>
+    </div>
+  </header>
+
+  <section id="hero" class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content reveal">
+      <h1>문제를 끝까지 파고드는<br />백엔드 개발자, 조창희입니다.</h1>
+      <p class="hero-sub">인프라 지식까지 갖춘 개발자입니다</p>
+      <a href="#projects" class="btn">프로젝트 보기</a>
+    </div>
+  </section>
+
+  <section id="about" class="section">
+    <div class="section-inner reveal">
+      <h2>소개</h2>
+      <p class="lead">백엔드를 공부하는 개발자, 조창희입니다. 작은 문제 하나도 끝까지 파고들고, 새로운 걸 배우는 속도가 빠릅니다. 인프라로도 관심을 넓혀가며, 함께 일하는 과정에서 더 좋은 답을 찾는 걸 좋아합니다.</p>
+    </div>
+  </section>
+
+  <section id="projects" class="section section-dark">
+    <div class="section-inner">
+      <h2 class="reveal">프로젝트</h2>
+      <div class="project-list">
+        <article class="project-card reveal">
+          <div class="project-body">
+            <span class="project-meta">TEAM PROJECT · 2026.07 – 2026.09</span>
+            <h3><a class="project-title-link" href="projects/insight-on.html">Insight On</a></h3>
+            <p>IoT 센서를 MQTT로 수집해 실시간으로 모니터링하고, 자동화(Rule Engine)와 AI 기반 지능형 제어로 자동 대응하는 Multi-Tenant 스마트 오피스 관제 플랫폼을 MSA로 설계·구현했습니다. 8명 팀에서 인프라 전 영역(Kubernetes 클러스터, CI/CD, GitOps, Observability)을 담당했습니다.</p>
+            <div class="project-stack">
+              <span>Spring Boot</span>
+              <span>Java 21</span>
+              <span>Kubernetes</span>
+              <span>PostgreSQL</span>
+              <span>Redis</span>
+              <span>InfluxDB</span>
+              <span>RabbitMQ</span>
+              <span>Docker</span>
+              <span>ArgoCD</span>
+              <span>Grafana / Loki</span>
+              <span>Cloudflare / Nginx</span>
+            </div>
+            <div class="project-link-wrap">
+              <a class="project-link" href="projects/insight-on.html">자세히 보기 &rarr;</a>
+              <a class="project-link" href="https://github.com/nhnacademy-aiot3-insighton" target="_blank" rel="noopener">GitHub &rarr;</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card reveal">
+          <div class="project-body">
+            <span class="project-meta">TEAM PROJECT · 2026.06.17 – 2026.07.04</span>
+            <h3><a class="project-title-link" href="projects/ai-library.html">AI Library</a></h3>
+            <p>BGE-M3 임베딩 기반 하이브리드 검색 결과를 RRF로 재랭킹해 LLM에 전달하는 RAG 추천 파이프라인과, 국립중앙도서관 Open API를 MCP 프로토콜(SSE)로 감싸 AI가 실시간 도서관 정보를 도구처럼 호출하는 MCP 서버를 설계·구현했습니다. 4명 팀에서 RAG 파이프라인과 MCP 서버/클라이언트를 담당했습니다.</p>
+            <div class="project-stack">
+              <span>Spring AI</span>
+              <span>Java 21</span>
+              <span>Spring Boot</span>
+              <span>PostgreSQL / pgvector</span>
+              <span>MCP (SSE)</span>
+              <span>Ollama</span>
+              <span>RabbitMQ</span>
+              <span>SonarQube</span>
+            </div>
+            <div class="project-link-wrap">
+              <a class="project-link" href="projects/ai-library.html">자세히 보기 &rarr;</a>
+              <a class="project-link" href="https://github.com/orgs/team1-ai-library" target="_blank" rel="noopener">GitHub &rarr;</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section">
+    <div class="section-inner reveal">
+      <h2>연락처</h2>
+      <div class="contact-links">
+        <a href="mailto:changhui5796@gmail.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 5.5h18v13H3z" stroke-linejoin="round"/><path d="M3 6l9 7 9-7" stroke-linejoin="round"/></svg>
+          changhui5796@gmail.com
+        </a>
+        <a href="https://github.com/SRIOUSS" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.54 2.87 8.39 6.84 9.75.5.1.68-.22.68-.49 0-.24-.01-1.04-.01-1.89-2.78.62-3.37-1.21-3.37-1.21-.45-1.18-1.11-1.5-1.11-1.5-.9-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.9 1.56 2.36 1.11 2.93.85.09-.67.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.72 0 0 .84-.27 2.75 1.05a9.3 9.3 0 0 1 5 0c1.9-1.32 2.75-1.05 2.75-1.05.55 1.41.2 2.46.1 2.72.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.8-4.57 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2z"/></svg>
+          github.com/SRIOUSS
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2026 조창희</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

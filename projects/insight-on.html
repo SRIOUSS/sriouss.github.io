@@ -654,7 +654,7 @@
   <section class="section">
     <div class="section-inner">
       <h2 class="section-heading reveal">협업 및 역할</h2>
-      <div class="role-grid reveal">
+      <div class="role-grid role-grid-2x2 reveal">
         <div class="role-col">
           <span class="trouble-label">TEAM</span>
           <h4>총 8명 (백엔드 6, Infra 1, Front 1)</h4>
@@ -669,6 +669,9 @@
           <span class="trouble-label">COMMUNICATION</span>
           <h4>인프라 변경을 팀에 노출하지 않는 구조 설계</h4>
           <p>insighton-infra라는 별도 저장소에 CI/CD 로직 전체를 중앙화하고, 각 백엔드 서비스 저장소에는 이 저장소의 워크플로우를 호출하는 얇은 GitHub Actions 워크플로우만 추가했습니다. 그 결과 CI/CD 파이프라인이 수정되거나 Docker Compose → Kubernetes로 인프라 전체가 마이그레이션되는 동안에도, 팀원들은 main에 PR을 머지하기만 하면 자동으로 배포되는 경험을 그대로 유지할 수 있었습니다. 변경사항을 매번 설명하고 대응을 요청하는 대신, 인터페이스(워크플로우 호출 한 줄)만 안정적으로 유지해 커뮤니케이션 비용 자체를 없앴습니다.</p>
+        </div>
+        <div class="role-col">
+          <span class="trouble-label">COMMUNICATION</span>
           <h4>인프라 배경지식 공유를 위한 사내 기술 세미나 진행</h4>
           <p>Infra 담당자로서 직접 설계한 아키텍처를 바탕으로, Eureka·Docker의 개념부터 Kubernetes를 도입한 이유, 이중화, 무중단 배포 원리까지 팀 전체를 대상으로 기술 세미나를 진행했습니다. 인프라 배경 지식이 없는 팀원들도 각자 개발한 서비스가 어떤 인프라 위에서 동작하는지 이해하게 되면서, 이후 배포·장애 대응 논의가 더 매끄러워졌습니다.</p>
         </div>

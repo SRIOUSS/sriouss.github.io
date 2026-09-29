@@ -868,6 +868,11 @@ text.step-arrow.stage-active {
   text-align: left;
 }
 
+/* 카드가 4개인 협업 섹션: 2×2 로 배치해 짧은 카드 아래 빈 공간이 생기지 않게 한다 */
+.role-grid-2x2 {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr));
+}
+
 .role-col {
   padding: 1.5rem;
   border: 1px solid #eee;
@@ -885,10 +890,6 @@ text.step-arrow.stage-active {
 .role-col h4 {
   font-size: 1rem;
   margin: 0 0 0.6rem;
-}
-
-.role-col p + h4 {
-  margin-top: 1.4rem;
 }
 
 .role-col p {

@@ -372,7 +372,7 @@
           <div class="issue-step issue-step-problem">
             <span class="issue-label">PROBLEM</span>
             <h4>LLM이 컨텍스트를 무시하거나 Tool Calling 체인에 실패</h4>
-            <p>성능이 높지 않은 LLM을 사용할 경우, 순차적으로 Tool을 호출해서 결과를 만들어내야 하는 Tool Calling 방식에서 엉뚱한 Tool을 계속 호출하는 문제가 있었습니다. 결과가 나오는데 5분 이상 기다려야 했고, 그 결과마저도 원하는 답이 아닌 경우가 허다했습니다.</p>
+            <p>성능이 높지 않은 LLM을 사용할 경우, 순차적으로 Tool을 호출해서 결과를 만들어내야 하는 Tool Calling 방식에서 엉뚱한 Tool을 계속 호출하는 문제가 있었습니다. 결과가 나오기까지 오래 기다려야 했고, 그 결과마저도 원하는 답이 아닌 경우가 허다했습니다.</p>
             <figure class="proof-thumb">
               <img src="img/ai-library/mcp-tools-before.png" alt="리팩터링 전 McpConnectionLogger 로그 — searchLibrariesByBooks, checkBookExists 등 9개의 세분화된 Tool 목록, 도서관 조회와 소장 여부 확인이 별도 단계로 분리돼 있음" loading="lazy" />
               <figcaption>리팩터링 전 — 도서관 조회(searchLibrariesByBooks)와 소장 여부 확인(checkBookExists)이 별도 Tool로 분리돼 있어 LLM이 순차 호출해야 했음</figcaption>
@@ -394,7 +394,7 @@
           <div class="issue-step issue-step-result">
             <span class="issue-label">RESULT</span>
             <h4>저성능 모델도 안정적으로 동작</h4>
-            <p>5분 이상 걸리던 AI의 Tool 호출 결과를 1분대로 단축할 수 있었고, 결과도 안정적인 답변을 받을 수 있었습니다.</p>
+            <p>복합 Tool 도입 후 저성능 모델에서도 Tool Calling이 성공해, 사용자가 원하는 도서관 정보를 안정적으로 받을 수 있었습니다.</p>
           </div>
         </div>
       </div>

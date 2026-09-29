@@ -887,6 +887,10 @@ text.step-arrow.stage-active {
   margin: 0 0 0.6rem;
 }
 
+.role-col p + h4 {
+  margin-top: 1.4rem;
+}
+
 .role-col p {
   font-size: 0.9rem;
   color: var(--color-muted);
